@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="category" class="col-sm-4 control-label">Industry</label>
+            <div class="col-sm-8 input-group">
+
+            <!-- <input type="text" class="form-control" name="category_code"
+                    ng-model="vm.dataSearch.category_name" uib-typeahead="item.Title as (item.Code +' - '+ item.Title) for item in vm.loadSuggestCategory($viewValue)" 
+                    typeahead-on-select= "vm.selestSuggestCategory($item, $model, $label, $event)" /> -->
+
+            <select class="form-control" ng-model="vm.dataSearch.category_code" ng-options="item.Code as (item.Code + ' - ' + item.Name) for item in vm.lstIndustry"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="fileImport" class="col-sm-4 control-label">File Import</label>
+            <div class="col-sm-8 input-group">
+                <input type="file" class="form-control" id="fileImport" name="fileImport" ngf-select="vm.selectFile($file)" accept=".xls">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="name" class="col-sm-4 control-label">Tên cơ sở</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="name" name="name" ng-model="vm.dataSearch.name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="adress" class="col-sm-4 control-label">Địa chỉ</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="adress" name="adress" ng-model="vm.dataSearch.adress">
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="form-group">
+            <button class="btn btn-flat btn-success" ng-click="vm.importFile()" ng-disabled="!vm.fileImport" has-permission="F2001">
+                <i class="fa fa-save"></i>
+                <span>Import</span>
+            </button>
+
+            <button class="btn btn-flat btn-danger" ng-click="vm.exportTemplate(vm.fileImport)" has-permission="F2002">
+                <span>File mẫu</span>
+            </button>
+        </div>
+        
+        <div class="form-group">
+            <button class="btn btn-flat btn-success" ng-click="vm.search(1)">
+                <i class="fa fa-search"></i>
+                <span>Search</span>
+            </button>
+
+            <button type="button" class="btn btn-success btn-flat" ng-click="vm.addNew()" has-permission="F2003">
+                <i class="fa fa-plus"></i>
+                <span>Add</span>
+            </button>
+        </div>
+    </div>
+</div>
+    
+    
+    <div class="box box-success">
+        <div class="row">
+            <div class="col-md-12">
+                <table id="dataTable" class="table table-hover dataTable">
+                    <thead>
+                        <tr>
+                            <th>Mã</th>
+                            <th>Tên cơ sở</th>
+                            <th>Hình thức</th>
+                            <th>Thông tin</th>
+                            <th>Địa chỉ</th>
+                            <th>Mã Phường/Xã</th>
+                            <th>Mã Cat</th>
+                            <!-- <th></th> -->
+                            <th>Ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in vm.lstStore track by $index">
+                            <td>{{item.code}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.type}}</td>
+                            <td>{{item.information}}</td>
+                            <td>{{item.adress | words:20}}</td>
+                            <td>{{item.ward_code}}</td>
+                            <td>{{item.category_code}}</td>
+                            <!-- <td>{{item.type}}</td> -->
+                            <td>{{item.note}}</td>
+                            <td style="width: 160px;">
+                                <button type="button" class="btn btn-success btn-flat btn-view" ui-sref="store({id: item.id})"
+                                    ng-hide="!item.id" has-permission="F2004">
+                                    <span>Edit</span>
+                                </button>
+    
+                                <button type="button" class="btn btn-danger btn-flat btn-view"
+                                    ng-click="vm.deleteItem(item.id)" has-permission="F2005">
+                                    <i class="fa fa-trash"></i>
+                                    <span>Delete</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-12">
+                <ul uib-pagination total-items="vm.total" ng-model="vm.page" max-size="5" class="pagination-sm" ng-change="vm.search(0)" items-per-page="12" boundary-links="true" rotate="true"></ul>
+            </div>
+        </div>
+    </div>

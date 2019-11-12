@@ -1,0 +1,87 @@
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="name" class="col-sm-6 control-label">Industry Name</label>
+            <div class="col-sm-6 input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-info"></i>
+                </div>
+                <input type="text" class="form-control" id="username" name="name" ng-model="vm.dataSearch.name">
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="col-md-3">
+        <div class="form-group">
+            <label for="title" class="col-sm-4 control-label">Title</label>
+            <div class="col-sm-8 input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-info"></i>
+                </div>
+                <input type="text" class="form-control" id="username" name="title" ng-model="vm.dataSearch.title">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="form-group">
+            <label for="code" class="col-sm-4 control-label">Code</label>
+            <div class="col-sm-8 input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-info"></i>
+                </div>
+                <input type="text" class="form-control" id="username" name="code" ng-model="vm.dataSearch.code">
+            </div>
+        </div>
+    </div> -->
+
+    <div class="col-md-3">
+        <button class="btn btn-flat btn-success" ng-click="vm.search()">
+            <i class="fa fa-search"></i>
+            <span>Search</span>
+        </button>
+    </div>
+</div>
+
+<div class="box box-success">
+    <div class="row">
+        <div class="col-md-12">
+            <table id="dataTable" class="table table-hover dataTable">
+                <thead>
+                    <tr>
+                        <!-- <th>ID</th> -->
+                        <th>Code</th>
+                        <th>Industry Name</th>
+                        <th>Title</th>
+                        <th>
+                            <button type="button" class="btn btn-success btn-flat btn-view" ng-click="vm.addNew()" has-permission="F5001">
+                                <span>Add</span>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.lstCategory track by $index">
+                        <!-- <td>{{item.id}}</td> -->
+                        <td>{{item.code}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.title}}</td>
+                        <td style="width: 160px;">
+                            <button type="button" class="btn btn-success btn-flat btn-view" ng-click="vm.update(item)" ng-hide="!item.id" has-permission="F5002">
+                                <span>Edit</span>
+                            </button>
+                            <!-- <button type="button" class="btn btn-success btn-flat btn-view" ng-click="vm.save(item)"
+                                ng-hide="item.id" ng-disabled="!item.code && !item.name && !item.title">
+                                <span>Save</span>
+                            </button> -->
+                            <button type="button" class="btn btn-danger btn-flat btn-view" ng-click="vm.deleteItem(item)" has-permission="F5003">
+                                <span>Delete</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

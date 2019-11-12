@@ -1,0 +1,94 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="vm.cancel()">&times;</button>
+    <h4 class="modal-title">Legislation Detail</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="category" class="col-sm-4 control-label">Category</label>
+                <div class="col-sm-8 input-group">
+                    <input type="text" class="form-control" id="category" name="category" ng-model="vm.legislation.CategoryCode" disabled>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label for="title" class="col-sm-4 control-label">Title</label>
+                <div class="col-sm-8 input-group">
+                    <input type="text" class="form-control" id="title" name="title" ng-model="vm.legislation.Title" disabled>
+                </div>
+            </div>
+    <!-- 
+            <div class="form-group">
+                <label for="partner_code" class="col-sm-4 control-label">Partner</label>
+                <div class="col-sm-8 input-group">
+                    <input type="text" class="form-control" id="partner_code" name="partner_code"
+                        ng-model="vm.legislation.partner_code">
+                </div>
+            </div> -->
+    
+            <div class="form-group">
+                <label for="implementing_authority" class="col-sm-4 control-label">Implementing Authority</label>
+                <div class="col-sm-8 input-group">
+                    <input type="text" class="form-control" id="implementing_authority" name="implementing_authority"
+                        ng-model="vm.legislation.ImplementingAuthority" disabled>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label for="description" class="col-sm-4 control-label">Description</label>
+                <div class="col-sm-8 input-group">
+                    <textarea name="description" id="description" cols="36" rows="5" ng-model="vm.legislation.Description" disabled></textarea>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="start_date" class="col-sm-4 control-label">Start Date</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.legislation.StartDate"
+                        is-open="vm.datepickerOpened1" datepicker-options="dateOptions" close-text="Close" disabled />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-flat btn-success" ng-click="vm.datepickerOpen(1)"><i
+                                class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label for="start_date" class="col-sm-4 control-label">End Date</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.legislation.EndDate"
+                        is-open="vm.datepickerOpened2" datepicker-options="dateOptions" close-text="Close" disabled />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-flat btn-success" ng-click="vm.datepickerOpen(2)"><i
+                                class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label for="reporter" class="col-sm-4 control-label">Reporter</label>
+                <div class="col-sm-8 input-group">
+                    <input type="text" class="form-control" id="reporter" name="reporter"
+                        ng-model="vm.legislation.Reporter" disabled>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label for="agency" class="col-sm-4 control-label">Agency</label>
+                <div class="col-sm-8 input-group">
+                    <input type="text" class="form-control" id="agency" name="agency" ng-model="vm.legislation.Agency" disabled>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label for="summary" class="col-sm-4 control-label">Summary</label>
+                <div class="col-sm-8 input-group">
+                    <textarea name="summary" id="summary" cols="36" rows="5" ng-model="vm.legislation.Summary" disabled></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

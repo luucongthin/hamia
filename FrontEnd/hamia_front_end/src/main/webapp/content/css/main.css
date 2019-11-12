@@ -1,0 +1,107 @@
+.navbar-header {
+  display: none; }
+
+.well {
+  background-color: #fff;
+  border: none;
+  border-radius: 0; }
+  .well .control-label {
+    text-align: right;
+    top: 5px; }
+
+.navbar-default {
+  border: none;
+  border-radius: 0;
+  color: #fff;
+  background-color: #00a65a !important; }
+  .navbar-default a {
+    color: #fff !important;
+    background-color: #00a65a !important; }
+
+.btn-customs {
+  margin-right: 15px;
+  padding: 15px 25px;
+  font-size: 15px;
+  border-radius: 0px; }
+
+.btn-selected {
+  background-color: red !important; }
+
+.pagination {
+  float: right;
+  margin-right: 35px; }
+  .pagination li.active a {
+    background-color: #00a65a !important;
+    border-color: #008d4c !important; }
+  .pagination li a {
+    border-radius: 0 !important; }
+
+.custom-marker {
+  background-color: red;
+  width: 130px;
+  padding: 10px;
+  color: #fff;
+  border-radius: 5px; }
+  .custom-marker .arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid red;
+    position: absolute;
+    bottom: -15px;
+    left: 50%; }
+
+.nav-right {
+  position: absolute;
+  top: 0px;
+  right: 0px; }
+  .nav-right ul li {
+    float: left;
+    list-style: none; }
+    .nav-right ul li p {
+      margin: 15px 0; }
+    .nav-right ul li button {
+      height: 50px;
+      border: none; }
+
+.navbar-nav li {
+  border-right: 1px solid #fff;
+  text-transform: uppercase; }
+
+.navbar-nav li:first-child {
+  border-left: 1px solid #fff; }
+
+.navbar-nav li:hover {
+  cursor: pointer; }
+
+.report-list ul {
+  padding: 0px;
+  margin-top: 15px; }
+
+.report-list li {
+  list-style: none;
+  float: left;
+  margin-right: 10px; }
+
+.report-list li:hover {
+  cursor: pointer; }
+
+.report-list li a {
+  background-color: #00a65a;
+  padding: 15px;
+  color: #fff;
+  padding: 15px; }
+
+.btn-center {
+  margin-left: 50%;
+  transform: translateX(-50%); }
+
+.table-border-green {
+  border: 1px solid #5cb85c !important; }
+  .table-border-green tr {
+    border: 1px solid #5cb85c !important; }
+    .table-border-green tr td {
+      border: 1px solid #5cb85c !important; }
+    .table-border-green tr th {
+      border: 1px solid #5cb85c !important; }

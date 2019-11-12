@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="cityCode" class="col-sm-4 control-label">Mã Tỉnh/Thành phố</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="cityCode" name="cityCode" ng-model="vm.location.cityCode">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cityName" class="col-sm-4 control-label">Tỉnh/Thành phố</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="cityName" name="cityName" ng-model="vm.location.cityName">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="ward_code" class="col-sm-4 control-label">Mã Xã</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="ward_code" name="ward_code"
+                    ng-model="vm.location.wardCode">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="wardName" class="col-sm-4 control-label">Xã/Phường</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="wardName" name="wardName" ng-model="vm.location.wardName">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="form-group">
+            <label for="districtCode" class="col-sm-4 control-label">Mã Quận/Huyện</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="districtCode" name="districtCode"
+                    ng-model="vm.location.districtCode">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="districtName" class="col-sm-4 control-label">Quận/Huyện</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="districtName" name="districtName"
+                    ng-model="vm.location.districtName">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="population" class="col-sm-4 control-label">Population</label>
+            <div class="col-sm-8 input-group">
+                <input type="number" class="form-control" id="population" name="population"
+                    ng-model="vm.location.population">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="area" class="col-sm-4 control-label">Area</label>
+            <div class="col-sm-8 input-group">
+                <input type="number" class="form-control" id="area" name="area" ng-model="vm.location.area">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <button class="btn btn-flat btn-success" ng-click="vm.back()">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </button>
+
+            <button class="btn btn-flat btn-success" ng-if="vm.location.id" ng-click="vm.update(vm.location)" has-permission="F3004">
+                <i class="fa fa-save"></i>
+                Update
+            </button>
+
+            <button class="btn btn-flat btn-success" ng-if="!vm.location.id" ng-click="vm.save(vm.location)" has-permission="F3003">
+                <i class="fa fa-save"></i>
+                Save
+            </button>
+
+            <button class="btn btn-flat btn-danger" ng-if="vm.location.id" ng-click="vm.deleteItem(vm.location.id)" has-permission="F3005">
+                <i class="fa fa-trash"></i>
+                Delete
+            </button>
+        </div>
+    </div>
+</div>

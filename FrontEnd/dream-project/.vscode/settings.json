@@ -1,0 +1,19 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/package-lock.json": true,
+        "**/key.pem": true,
+        "**/cert.pem": true,
+        "**/node_modules": true,
+        //"**/.nuxt": true,
+        "**/.editorconfig": true,   
+        "**/README.md": true,
+        "**/dist": true,
+        "**/.gitignore": true,
+        "**/.DS_Store": true
+    },
+    "vetur.format.options.tabSize": 4
+}

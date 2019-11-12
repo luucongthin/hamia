@@ -1,0 +1,256 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="city" class="col-sm-4 control-label">Tỉnh/Thành phố</label>
+            <div class="col-sm-8 input-group">
+                <!-- <input type="text" class="form-control" id="city" name="city" ng-model="vm.dataSearch.city"> -->
+                <!-- <input type="text" class="form-control" name="city"
+                            ng-model="vm.dataSearch.city_name" uib-typeahead="item.CityName as (item.CityCode +' - '+ item.CityName) for item in vm.loadSuggestCity($viewValue)" 
+                            typeahead-on-select= "vm.selestSuggestCity($item, $model, $label, $event)" /> -->
+
+                <select class="form-control" ng-model="vm.dataSearch.city_code" ng-options="item.CityCode as (item.CityName) for item in vm.lstCity" ng-change="vm.citySelected()"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="district" class="col-sm-4 control-label">Quận/Huyện</label>
+            <div class="col-sm-8 input-group">
+                <!-- <input type="text" class="form-control" id="district" name="district" ng-model="vm.dataSearch.district"> -->
+                <!-- <input type="text" class="form-control" name="district_name"
+                            ng-model="vm.dataSearch.district_name" uib-typeahead="item.DistrictName as (item.DistrictCode +' - '+ item.DistrictName) for item in vm.loadSuggestDistrict($viewValue)" 
+                            typeahead-on-select= "vm.selestSuggestDistrict($item, $model, $label, $event)" /> -->
+                <select class="form-control" ng-model="vm.dataSearch.district_code" ng-options="item.DistrictCode as (item.DistrictName) for item in vm.lstDistrict" ng-change="vm.districtSelected()"></select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="district" class="col-sm-4 control-label">Phường/Xã</label>
+            <div class="col-sm-8 input-group">
+                <!-- <input type="text" class="form-control" name="ward_name"
+                            ng-model="vm.dataSearch.ward_name" uib-typeahead="item.WardName as (item.WardCode +' - '+ item.WardName) for item in vm.loadSuggestWard($viewValue)" 
+                            typeahead-on-select= "vm.selestSuggestWard($item, $model, $label, $event)" /> -->
+
+                <select class="form-control" ng-model="vm.dataSearch.ward_code" ng-change="vm.wardSelected()">
+                    <option ng-repeat="item in vm.lstWard" value="{{item.WardCode}}">{{item.WardName}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="name" class="col-sm-4 control-label"></label>
+            <button class="btn btn-flat btn-success" ng-click="vm.searchStore()">
+                <i class="fa fa-search"></i>
+                <span style="text-transform: uppercase">tìm kiếm</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+            <ng-map zoom="13" center="{{vm.center}}" style="height:600px">
+            <!-- <marker ng-repeat="item in vm.lstStore" position="{{item.adress}}"></marker> -->
+            <kml-layer url="{{vm.url}}">
+                <!-- <custom-marker id="foo" ng-repeat="item in vm.lstStore" position="{{item.adress}}" on-click="vm.calculateDistance(item, item.adress)"> -->
+                <custom-marker id="foo" ng-repeat="item in vm.lstStore" position="{{item.adress}}">
+                    <b>{{item.name}}</b></br>
+                    <!-- <span>{{item.adress}}</span></br>
+                    <span>{{item.information}}</span> -->
+                    <span class="arrow-down"></span>
+                </custom-marker>
+            </kml-layer>
+        </ng-map>
+    </div>
+</div>
+
+<div class="box box-success" style="margin-top: 40px" ng-hide="vm.userRole.toUpperCase() == 'FREE USER' || vm.userRole.toUpperCase() == ''">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 style=" text-align: center;text-transform: uppercase; font-weight: bold;">Phân tích cơ sở kinh doanh ngành {{vm.industryName}}</h3>
+            <!-- <span>Tỉnh/Thành phố </span><span>{{vm.dataSearch.city_name}}</span><span> - Quận/Huyện </span><span>{{vm.dataSearch.district_name}}</span><span> - Phường/Xã </span><span>{{vm.dataSearch.ward_name}}</span> -->
+            <p style=" text-align: center;text-transform: uppercase; font-weight: bold;">
+                <span>{{vm.dataSearch.city_name}}</span>
+                <span ng-if="vm.dataSearch.district_name"> - </span>
+                <span>{{vm.dataSearch.district_name}}</span>
+                <span ng-if="vm.dataSearch.ward_name"> - </span>
+                <span>{{vm.dataSearch.ward_name}}</span>
+            </p>
+        </div>
+
+        <div class="col-md-12">
+            <table  id="dataTable" class="table table-hover dataTable">
+                <thead>
+                    <tr>
+                        <th>Tiêu chí</th>
+                        <th ng-if="!vm.dataSearch.city_name">Cả nước</th>
+                        <th ng-if="vm.dataSearch.city_name">{{vm.dataSearch.city_name}}</th>
+                        <th ng-if="vm.dataSearch.district_name">{{vm.dataSearch.district_name}}</th>
+                        <th ng-if="vm.dataSearch.ward_name">{{vm.dataSearch.ward_name}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.lstCount" ng-if="item.CT == 1">
+                        <td>Số cơ sở: </td>
+                        <td ng-if="!vm.dataSearch.city_name">{{item.Total | number }} CS</td>
+                        <td ng-if="vm.dataSearch.city_name">{{item.City  | number}} CS</td>
+                        <td ng-if="vm.dataSearch.district_name">{{item.District | number }} CS</td>
+                        <td ng-if="vm.dataSearch.ward_name">{{item.Ward  | number}} CS</td>
+                    </tr>
+
+                    <tr ng-repeat="item in vm.lstCount"  ng-if="item.CT == 2">
+                        <td>Mật độ cơ sở/diện tích: </td>
+                        <td ng-if="!vm.dataSearch.city_name">{{item.Total | number:6}} CS/KM2</td>
+                        <td ng-if="vm.dataSearch.city_name">{{item.City  | number:6}} CS/KM2</td>
+                        <td ng-if="vm.dataSearch.district_name">{{item.District | number:6 }} CS/KM2</td>
+                        <td ng-if="vm.dataSearch.ward_name">{{item.Ward  | number:6}} CS/KM2</td>
+                    </tr>
+
+                    <tr ng-repeat="item in vm.lstCount"  ng-if="item.CT == 3">
+                        <td>Mật độ cơ sở/dân số: </td>
+                        <td ng-if="!vm.dataSearch.city_name">{{item.Total | number:6 }} CS/NN</td>
+                        <td ng-if="vm.dataSearch.city_name">{{item.City  | number:6}} CS/NN</td>
+                        <td ng-if="vm.dataSearch.district_name">{{item.District | number:6 }} CS/NN</td>
+                        <td ng-if="vm.dataSearch.ward_name">{{item.Ward  | number:6}} CS/NN</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="box box-success" ng-hide="vm.userRole.toUpperCase() == 'FREE USER' || vm.userRole.toUpperCase() == ''">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 style="text-align: center; text-transform: uppercase; font-weight: bold">Danh sách cơ sở kinh doanh ngành {{vm.industryName}}</h4>
+        </div>
+
+        <div class="col-md-12">
+            <table id="dataTable" class="table table-hover dataTable">
+                <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Tên cơ sở</th>
+                        <th>Hình thức</th>
+                        <th>Thông tin</th>
+                        <th>Địa chỉ</th>
+                        <th>Mã Phường/Xã</th>
+                        <th>Mã Cat</th>
+                        <!-- <th></th> -->
+                        <th>Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.lstStorePage track by $index">
+                        <td>{{item.code}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.type}}</td>
+                        <td>{{item.information}}</td>
+                        <td>{{item.adress | words:20}}</td>
+                        <td>{{item.ward_code}}</td>
+                        <td>{{item.category_code}}</td>
+                        <!-- <td>{{item.type}}</td> -->
+                        <td>{{item.note}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12">
+            <ul uib-pagination total-items="vm.total" ng-model="vm.page" max-size="5" class="pagination-sm" ng-change="vm.searchStorePage()" items-per-page="12" boundary-links="true" rotate="true"></ul>
+        </div>
+    </div>
+</div>
+
+<div class="box box-success" ng-hide="vm.userRole.toUpperCase() == 'FREE USER' || vm.userRole.toUpperCase() == ''">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 style="text-align: center; text-transform: uppercase; font-weight: bold">Xác định khoảng cách giữa các cơ sở kinh doanh</h4>
+            <button class="btn btn-flat btn-success btn-center" ng-click="vm.startStop(1)" ng-if="vm.isStart != 1">
+                <span style="text-transform: uppercase; font-weight: bold">Bắt đầu</span>
+            </button></br>
+            <p></p>
+        </div>
+
+        <div class="col-md-4 col-md-offset-3" ng-if="vm.isStart == 1">
+            <div class="form-group">
+                <label for="city" class="col-sm-4 control-label">Điểm bắt đầu</label>
+                <div class="col-sm-8 input-group">
+                    <select class="form-control" ng-model="vm.startItem">
+                        <option ng-repeat="item in vm.lstStore" value="{{item.id}}">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="city" class="col-sm-4 control-label">Điểm đến</label>
+                <div class="col-sm-8 input-group">
+                    <select class="form-control" ng-model="vm.endItem">
+                        <option ng-repeat="item in vm.lstStore" value="{{item.id}}" ng-if="item.id != vm.startItem">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3" ng-if="vm.isStart == 1">
+            <button class="btn btn-flat btn-success" ng-click="vm.calculateDistance()" id="btn_kq">
+                <span style="text-transform: uppercase;  font-weight: bold">Xem kết quả</span>
+            </button>
+        </div>
+
+        <div class="col-md-8 col-md-offset-3" ng-if="vm.isStart == 1">
+            <div class="form-group">
+                <label for="city" class="col-sm-2 control-label">Kết quả</label>
+                <div class="col-sm-10 input-group">
+                    <span>Khoảng cách giữa {{vm.startTitle}} và {{vm.endTitle}} là {{vm.drive}}</span></br>
+                    <span>Thời gian đi là {{vm.minuteDrive}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12" ng-if="vm.isStart != 0">
+            <table class="table table-hover table-bordered table-border-green">
+                <thead>
+                    <tr>
+                        <th>Lần tính</th>
+                        <th></th>
+                        <th>Tên cơ sở</th>
+                        <th>Thông tin</th>
+                        <th>Địa chỉ</th>
+                        <th>Khoảng cách</th>
+                        <th>Thời gian di chuyển</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.lstCalculate track by $index">
+                        <td rowspan="2" style="text-align: center;" ng-if="item.isStart">{{($index + 2)/2}}</td>
+                        <td ng-if="item.isStart">Thông tin điểm bắt đầu</td>
+                        <td ng-if="!item.isStart">Thông tin điểm kết thúc</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.information}}</td>
+                        <td>{{item.adress}}</td>
+                        <td rowspan="2" style="text-align: center;" ng-if="item.isStart">{{item.drive}}</td>
+                        <td rowspan="2" style="text-align: center;" ng-if="item.isStart">{{item.minuteDrive}}</td>
+                    </tr>
+                    <!-- <tr ng-repeat="item in vm.lstCalculate">
+                        <td>Thông tin điểm kết thúc</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.information}}</td>
+                        <td>{{item.adress}}</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-12" ng-if="vm.isStart == 1">
+            <div class="form-group" style="display: flex; justify-content: center;">
+                <button class="btn btn-flat btn-success" ng-click="vm.continute()">
+                    <span style="text-transform: uppercase;  font-weight: bold">Tiếp tục</span>
+                </button>
+
+                <button class="btn btn-flat btn-success" style="margin-left: 15px" ng-click="vm.startStop(2)">
+                    <span style="text-transform: uppercase;  font-weight: bold">Kết thúc</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

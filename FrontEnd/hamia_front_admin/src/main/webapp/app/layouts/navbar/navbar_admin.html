@@ -1,0 +1,87 @@
+<aside class="main-sidebar" ng-if="vm.isAuthenticated">
+    <!-- <aside class="main-sidebar"> -->
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar" style="height: auto;">
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu tree" data-widget="tree">
+
+            <!-- <li class="active treeview menu-open">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                    <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                </ul>
+            </li> -->
+
+            <li has-permission="F5000">
+                <a ui-sref="categories">
+                    <i class="fa fa-files-o"></i>
+                    <span>Quản lý Industry</span>
+                </a>
+            </li>
+
+            <!-- <li>
+                <a ui-sref="legislations">
+                    <i class="fa fa-files-o"></i>
+                    <span >Quản lý Legislation</span>
+                </a>
+            </li> -->
+
+            <li class="treeview" has-permission="F4000">
+                <a>
+                    <i class="fa fa-dashboard"></i> <span>Quản lý Legislation</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a ui-sref="legislations">
+                            <i class="fa fa-circle-o"></i>
+                            <span>NTM</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li has-permission="F3000">
+                <a ui-sref="locations">
+                    <i class="fa fa-map"></i>
+                    <span>Quản lý khu vực địa lý</span>
+                </a>
+            </li>
+
+            <li has-permission="F2000">
+                <a ui-sref="stores">
+                    <i class="fa fa-map-marker"></i>
+                    <span>Quản lý cơ sở kinh doanh</span>
+                </a>
+            </li>
+
+            <li has-permission="F0000">
+                <a ui-sref="users">
+                    <i class="fa fa-user"></i>
+                    <span>Quản lý User</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+
+<script>
+
+    $(document).ready(function () {
+        $('.treeview').on('click', function(){
+            $(this).toggleClass('menu-open');
+
+            $(this).children( ".treeview-menu" ).toggleClass('menu-child-open');;
+        })
+    });
+
+</script>

@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="usersname" class="col-sm-4 control-label">Users Name</label>
+            <div class="col-sm-8 input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa-users"></i>
+                </div>
+                <input type="text" class="form-control" id="usersname" name="usersname" ng-model="vm.searchUser.username">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="email" class="col-sm-4 control-label">Email</label>
+            <div class="col-sm-8 input-group">
+                <div class="input-group-addon">
+                    <i class="fa fa fa-envelope-o"></i>
+                </div>
+                <input type="text" class="form-control" id="usersname" name="email" ng-model="vm.searchUser.email">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <button class="btn btn-success btn-flat" ng-click="vm.search()">
+            <i class="fa fa-search"></i>
+            <span>Search</span>
+        </button>
+
+        <button class="btn btn-success btn-flat" ng-click="vm.addNew()" has-permission="F0001">
+            <i class="fa fa-plus"></i>
+            <span>Add Users</span>
+        </button>
+    </div>
+</div>
+
+<div class="box box-success">
+    <div class="row">
+        <div class="col-md-12">
+            <table id="dataTable" class="table table-hover dataTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Users Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in vm.lstUser track by $index">
+                        <td>{{item.id}}</td>
+                        <td>{{item.username}}</td>
+                        <td>{{item.email}}</td>
+                        <td>{{item.role}}</td>
+                        <td style="width: 60px;">
+                            <button type="button" class="btn btn-success btn-flat btn-view" ng-click="vm.detail(item.id)" ng-hide="item.role.toUpperCase() == 'SUPER ADMIN' && vm.userRole.toUpperCase() == 'ADMIN'">
+                                <span>View</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

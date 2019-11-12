@@ -1,0 +1,138 @@
+<div ng-cloak>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- <div class="form-group">
+                    <label for="industry" class="col-sm-4 control-label">Industry</label>
+                    <div class="col-sm-8 input-group">
+                        <input type="text" class="form-control" name="industry" ng-model="vm.dataSearch.industry_name"
+                            uib-typeahead="item.Name as (item.Code +' - '+ item.Name) for item in vm.loadSuggestIndustry($viewValue)"
+                            typeahead-on-select="vm.selestSuggestIndustry($item, $model, $label, $event)" />
+                    </div>
+                </div> -->
+                
+                <div class="form-group">
+                    <label for="name" class="col-sm-4 control-label">Nước nhập khẩu</label>
+                    <div class="col-sm-8 input-group">
+                        <input type="text" class="form-control" name="category_code" ng-model="vm.dataSearch.reporter"
+                            uib-typeahead="item.Name as (item.Code +' - '+ item.Name) for item in vm.loadSuggestrReporter($viewValue)"
+                            typeahead-on-select="vm.selestSuggestReporter($item, $model, $label, $event)" />
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label for="name" class="col-sm-4 control-label">Loại hàng hóa</label>
+                    <div class="col-sm-8 input-group">
+                        <input type="text" class="form-control" name="category_code" ng-model="vm.dataSearch.product"
+                            uib-typeahead="item.Name as (item.Code +' - '+ item.Name) for item in vm.loadSuggestProduct($viewValue)"
+                            typeahead-on-select="vm.selestSuggestProduct($item, $model, $label, $event)" />
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label for="name" class="col-sm-4 control-label"></label>
+                    <button class="btn btn-flat btn-success" ng-click="vm.search()">
+                        <i class="fa fa-search"></i>
+                        <span style="text-transform: uppercase">tìm kiếm</span>
+                    </button>
+                </div>
+    
+            </div>
+        </div>
+    
+        <div class="box box-success" ng-show="vm.isSearch">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Các yêu cầu áp dụng đối với hàng hóa {{vm.dataSearch.product}} xuất khẩu từ Việt Nam vào
+                        {{vm.dataSearch.reporter}}</h4>
+                    <h3>A - Các văn bản pháp luật</h3>
+                    <table id="dataTable" class="table table-hover dataTable">
+                        <thead>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Tên văn bản</th>
+                                <!-- <th>Tên nguyên gốc</th> -->
+                                <th>Tóm tắt</th>
+                                <th style="width: 100px;">Ngày bắt đầu</th>
+                                <th style="width: 100px;">Ngày kết thúc</th>
+                                <!-- <th>Ngày thu nhập thông tin</th> -->
+                                <th>Cơ quan thực thi</th>
+                                <th>Tổ chức thu thập</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.lstLegislation track by $index">
+                                <td>{{item.ID}}</td>
+                                <td>{{item.Title | characters:50}}</td>
+                                <!-- <td>{{item.type}}</td> -->
+                                <td>{{item.Summary | characters:50}}</td>
+                                <td>{{item.StartDate | date:'yyyy-MM-dd'}}</td>
+                                <td>{{item.EndDate | date:'yyyy-MM-dd'}}</td>
+                                <td>{{item.ImplementingAuthority | characters:50 }}</td>
+                                <td>{{item.Agency}}</td>
+                                <td>
+                                    <button class="btn btn-flat btn-success btn-view" ng-click="vm.detail(item)">
+                                        <span>Detail</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-12">
+                    <p>Tổng số văn bản pháp luật áp dụng: {{vm.totalLegislationU}}</p>
+                    <ul uib-pagination total-items="vm.totalLegislation" ng-model="vm.pageLegislation" max-size="5" class="pagination-sm" ng-change="vm.getLegislation()" items-per-page="12" boundary-links="true" rotate="true"></ul>
+                </div>
+            </div>
+        </div>
+    
+        <div class="box box-success" ng-show="vm.isSearch">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>B - Các biện pháp cụ thể</h3>
+        
+                    <table id="dataTable" class="table table-hover dataTable">
+                        <thead>
+                            <tr>
+                                <th>Mã nước NK</th>
+                                <th>Nước nhập khẩu</th>
+                                <th>Mã nước XK</th>
+                                <th>Nước xuất khẩu</th>
+                                <th>Comment</th>
+                                <th>Mã hàng</th>
+                                <th>Product Comment</th>
+                                <th>HS Revision</th>
+                                <th>NTM Code</th>
+                                <th>NTM Revision</th>
+                                <th>NTM Comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in vm.lstMeansuer track by $index">
+                                <td>{{item.ReporterCode}}</td>
+                                <td>{{item.Reporter}}</td>
+                                <td>{{item.Partner}}</td>
+                                <td>{{item.PartnerCode}}</td>
+                                <td>{{item.PartnerComment}}</td>
+                                <td>{{item.ProductCode}}</td>
+                                <td>{{item.PartnerComment}}</td>
+                                <td>{{item.HSRevision}}</td>
+                                <td>{{item.NTMCode}}</td>
+                                <td>{{item.NTMComment}}</td>
+                                <td>{{item.NTMRevision}}</td>
+        
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-12">
+                    <p>Tổng số biện pháp: {{vm.totalNTM}}</p>
+                    <p>Phân loại các biện pháp</p>
+                    <p ng-repeat="item in vm.lstMeansuerBP">{{item.Code + ': ' + item.Sum}}</p>
+                    <ul uib-pagination total-items="vm.totalNTM" ng-model="vm.pageNTM" max-size="5" class="pagination-sm" ng-change="vm.getMeansuer()" items-per-page="12" boundary-links="true" rotate="true"></ul>
+                </div>
+            </div>
+        </div>
+    </div>

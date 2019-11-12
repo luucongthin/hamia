@@ -1,0 +1,100 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="code" class="col-sm-4 control-label">Mã</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="code" name="code" ng-model="vm.store.code">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="name" class="col-sm-4 control-label">Tên cơ sở</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="name" name="name" ng-model="vm.store.name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="adress" class="col-sm-4 control-label">Địa chỉ</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="adress" name="adress" ng-model="vm.store.adress">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="information" class="col-sm-4 control-label">Thông tin</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="information" name="information"
+                    ng-model="vm.store.information">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="form-group">
+            <label for="ward_code" class="col-sm-4 control-label">Mã Xã</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="ward_code" name="ward_code" ng-model="vm.store.ward_code">
+            </div>
+        </div>
+
+        <!-- <div class="form-group">
+            <label for="store" class="col-sm-4 control-label">Vị trí</label>
+            <div class="col-sm-4 input-group">
+                <input type="text" class="form-control" id="latitude" name="latitude" ng-model="vm.store.latitude">
+                <input type="text" class="form-control" id="longitude" name="longitude" ng-model="vm.store.longitude">
+            </div>
+        </div> -->
+
+        <div class="form-group">
+            <label for="category" class="col-sm-4 control-label">Category</label>
+            <div class="col-sm-8 input-group">
+                <!-- <input type="text" class="form-control" id="category" name="category"
+                    ng-model="vm.store.category_code"> -->
+                <select class="form-control" ng-model="vm.store.category_code" ng-options="item.Code as (item.Code + ' - ' + item.Name) for item in vm.lstIndustry"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="type" class="col-sm-4 control-label">Type</label>
+            <div class="col-sm-8 input-group">
+                <input type="text" class="form-control" id="type" name="type" ng-model="vm.store.type">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="note" class="col-sm-4 control-label">Note</label>
+            <div class="col-sm-8 input-group">
+                <textarea name="note" id="" cols="70" rows="5" ng-model="vm.store.note"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <button class="btn btn-flat btn-success" ng-click="vm.back()">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </button>
+
+            <button class="btn btn-flat btn-success" ng-if="vm.store.id" ng-click="vm.update(vm.store)" has-permission="F2004">
+                <i class="fa fa-save"></i>
+                Update
+            </button>
+
+            <button class="btn btn-flat btn-success" ng-if="!vm.store.id" ng-click="vm.save(vm.store)" has-permission="F2003">
+                <i class="fa fa-save"></i>
+                Save
+            </button>
+
+            <button class="btn btn-flat btn-danger" ng-if="vm.store.id" ng-click="vm.deleteItem(vm.store.id)" has-permission="F2005">
+                <i class="fa fa-trash"></i>
+                Delete
+            </button>
+        </div>
+    </div>
+</div>

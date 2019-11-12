@@ -1,0 +1,47 @@
+<nav class="navbar navbar-default" role="navigation" ng-if="vm.isShowNav">
+    <div class="container-fluid">
+        <div class="navbar-collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a ui-sref="home">
+                        <span class="hidden-sm">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="vm.stateGo('legislation')">
+                        <span class="hidden-sm">Non Tariff Measures</span>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="vm.stateGo('store')">
+                        <span class="hidden-sm">Cơ sở kinh doanh</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <ul>
+                <li>
+                    <p>
+                        {{vm.account.FirstName + ' ' + vm.account.LastName}}
+                    </p>
+                </li>
+                <li>
+                    <button class="btn btn-flat btn-success" ng-click="vm.logout()" ng-if="vm.account.ID">
+                        <span>Đăng xuất</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="btn btn-flat btn-success" ng-click="vm.login()" ng-if="!vm.account.ID">
+                        <span>Đăng nhập</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="btn btn-flat btn-success" ng-click="vm.register()" ng-if="!vm.account.ID">
+                        <span>Đăng ký</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

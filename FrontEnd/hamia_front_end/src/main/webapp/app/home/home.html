@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-12">
+        <h3>Lựa chọn ngành</h3>
+    </div>
+    <div class="col-md-12">
+        <button class="btn btn-flat btn-success btn-customs" ng-repeat="item in vm.lstIndustry" ng-click="vm.selected(item)" ng-if="!item.selected">
+            <span>{{item.Name}}</span>
+        </button>
+
+        <button class="btn btn-flat btn-success btn-customs btn-selected" ng-repeat="item in vm.lstIndustry" ng-click="vm.selected(item)" ng-if="item.selected">
+            <span>{{item.Name}}</span>
+        </button>
+    </div>
+    <div class="col-md-12">
+        <h3>Chọn loại báo cáo</h3>
+    </div>
+    <div class="col-md-12 report-list">
+        <ul>
+            <li>
+                <button class="btn btn-success" ng-click="vm.stateGo('legislation')">
+                    <span>Biện pháp phi thuế quan</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="btn btn-success" ng-click="vm.stateGo('store')">
+                    <span>Cơ sở kinh doanh</span>
+                </button>
+            </li>
+
+            <li>
+                <button class="btn btn-success" ng-click="vm.exportPDF()">
+                    <span>Export PDF</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
