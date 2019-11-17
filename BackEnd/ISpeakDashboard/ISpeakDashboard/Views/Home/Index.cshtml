@@ -1,0 +1,131 @@
+﻿
+@model dynamic
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <section id="dashboard-analytics">
+        <div class="row match-height">
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">New activated student</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div id="chart_1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            New activated student ( % by age )
+                        </h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div id="chart_2" class="mx-auto"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row match-height">
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Trialed students</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div id="chart_3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            % học thử/số học viên activated
+                        </h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div id="chart_4" class="mx-auto"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row match-height">
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Trialed students</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div id="chart_1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            % học thử/số học viên activated
+                        </h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div id="chart_2" class="mx-auto"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            % học thử/số học viên activated
+                        </h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div id="chart_2" class="mx-auto"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            % học thử/số học viên activated
+                        </h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div id="chart_2" class="mx-auto"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/dashboard")
+
+    </section>
