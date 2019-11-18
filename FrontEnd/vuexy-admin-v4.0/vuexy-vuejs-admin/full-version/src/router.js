@@ -57,9 +57,9 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '/dashboard/ecommerce',
-                    name: 'dashboard-ecommerce',
-                    component: () => import('./views/DashboardECommerce.vue'),
+                    path: '/admin/locations',
+                    name: 'admin-locations',
+                    component: () => import('./views/admin/locations.vue'),
                     meta: {
                         rule: 'admin'
                     }
