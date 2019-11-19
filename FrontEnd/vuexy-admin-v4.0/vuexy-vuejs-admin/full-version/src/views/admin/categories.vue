@@ -171,7 +171,7 @@ export default {
           vm.RunStart();
           vm.popup = false;
         })
-        .catch((error) => { reject(error) })
+        .catch((error) => { console.log(error) })
       },
       DeleteCategories(id, code) {
         this.categories_id = id;
