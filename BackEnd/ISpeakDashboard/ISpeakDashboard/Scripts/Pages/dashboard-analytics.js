@@ -33,10 +33,10 @@ $(window).on("load", function () {
         },
         series: [{
             name: 'Result',
-            data: [80, 55, 57, 56, 61, 58]
+            data: [47, 54, 64, 59, 70, 61]
         }, {
             name: 'Target',
-            data: [60, 85, 101, 98, 87, 105]
+            data: [60, 55, 60, 60, 65, 60]
         }],
         legend: {
             offsetY: -10

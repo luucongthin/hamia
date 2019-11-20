@@ -34,7 +34,7 @@ namespace ISpeakDashboard
 
             bundles.Add(new ScriptBundle("~/bundles/dashboard").Include(
                     "~/Assets/vendors/js/vendors.min.js",
-                    "~/Assets/js/scripts/pages/dashboard-analytics.js"));
+                    "~/Scripts/Pages/dashboard-analytics.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                     "~/Assets/vendors/css/vendors.min.css",

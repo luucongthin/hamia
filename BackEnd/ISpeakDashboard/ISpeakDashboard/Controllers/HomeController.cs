@@ -11,9 +11,11 @@ namespace ISpeakDashboard.Controllers
         {
             dynamic _lstModel = new ExpandoObject();
             UserInfoModel _userInfo = new UserInfoModel();
+            Session["auth_sesion"] = "1";
             string _userID = !string.IsNullOrEmpty((string)Session["auth_sesion"]) ? Session["auth_sesion"].ToString() : "";
 
-            _userInfo = GetUserInfo(_userID);
+            //_userInfo = GetUserInfo(_userID);
+            _userInfo.Fullname = "THINLC";
             _lstModel.UserInfo = _userInfo;
 
             ViewBag.UserName = _userInfo.Fullname;

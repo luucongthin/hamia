@@ -1106,7 +1106,7 @@
     <Content Include="Assets\js\scripts\pages\coming-soon.min.js" />
     <Content Include="Assets\js\scripts\pages\content-sidebar.js" />
     <Content Include="Assets\js\scripts\pages\content-sidebar.min.js" />
-    <Content Include="Assets\js\scripts\pages\dashboard-analytics.js" />
+    <Content Include="Scripts\Pages\dashboard-analytics.js" />
     <Content Include="Assets\js\scripts\pages\dashboard-analytics.min.js" />
     <Content Include="Assets\js\scripts\pages\dashboard-ecommerce.js" />
     <Content Include="Assets\js\scripts\pages\dashboard-ecommerce.min.js" />
