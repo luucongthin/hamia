@@ -29,12 +29,26 @@ namespace ISpeakDashboard
                     "~/Assets/vendors/js/extensions/tether.min.js",
                     "~/Assets/js/core/app-menu.js",
                     "~/Assets/js/core/app.js",
+                    "~/Scripts/theme.js",
                     //"~/Assets/vendors/js/extensions/shepherd.min.js",
                     "~/Assets/js/scripts/components.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/dashboard").Include(
+            bundles.Add(new ScriptBundle("~/bundles/teacher").Include(
                     "~/Assets/vendors/js/vendors.min.js",
-                    "~/Scripts/Pages/dashboard-analytics.js"));
+                    "~/Assets/vendors/js/tables/datatable/pdfmake.min.js",
+                    "~/Assets/vendors/js/tables/datatable/vfs_fonts.js",
+                    "~/Assets/vendors/js/tables/datatable/datatables.min.js",
+                    "~/Assets/vendors/js/tables/datatable/datatables.buttons.min.js",
+                    "~/Assets/vendors/js/tables/datatable/buttons.html5.min.js",
+                    "~/Assets/vendors/js/tables/datatable/buttons.print.min.js",
+                    "~/Assets/vendors/js/tables/datatable/buttons.bootstrap.min.js",
+                    "~/Assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js",
+                    "~/Assets/js/scripts/datatables/datatable.js",
+                    "~/Scripts/Pages/teacher.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/student").Include(
+                    "~/Assets/vendors/js/vendors.min.js",
+                    "~/Scripts/Pages/student.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                     "~/Assets/vendors/css/vendors.min.css",
@@ -54,6 +68,7 @@ namespace ISpeakDashboard
                     "~/Assets/css/pages/card-analytics.css",
                     "~/Assets/css/plugins/tour/tour.css",
                     "~/Assets/css/pages/authentication.css",
+                    "~/Assets/vendors/css/tables/datatable/datatables.min.css",
                     "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/css/login").Include(

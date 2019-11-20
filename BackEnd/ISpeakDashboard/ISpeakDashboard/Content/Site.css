@@ -1,1 +1,14 @@
-﻿
+﻿.menu-li{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    padding: 0 10px;
+    border-radius: 5px;
+    transition: all .3s;
+}
+
+.menu-li:hover, .menu-li.active {
+    background-color: #7367F0;
+    color: #fff;
+}

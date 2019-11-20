@@ -70,11 +70,11 @@
             <div class="col-lg-3 col-md-6 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Trialed students</h4>
+                        <h4 class="card-title">Số học viên mới mua gói học</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <div id="chart_1"></div>
+                            <div id="chart_5"></div>
                         </div>
                     </div>
                 </div>
@@ -83,13 +83,11 @@
             <div class="col-lg-3 col-md-6 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">
-                            % học thử/số học viên activated
-                        </h4>
+                        <h4 class="card-title">%/số học thử</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <div id="chart_2" class="mx-auto"></div>
+                            <div id="chart_6" class="mx-auto"></div>
                         </div>
                     </div>
                 </div>
@@ -98,13 +96,11 @@
             <div class="col-lg-3 col-md-6 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">
-                            % học thử/số học viên activated
-                        </h4>
+                        <h4 class="card-title">%/số đăng ký</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <div id="chart_2" class="mx-auto"></div>
+                            <div id="chart_7" class="mx-auto"></div>
                         </div>
                     </div>
                 </div>
@@ -113,19 +109,58 @@
             <div class="col-lg-3 col-md-6 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">
-                            % học thử/số học viên activated
-                        </h4>
+                        <h4 class="card-title">tỷ trọng các loại gói học phí (Vietnam, native, châu Á)</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <div id="chart_2" class="mx-auto"></div>
+                            <div id="chart_8" class="mx-auto"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        @Scripts.Render("~/bundles/dashboard")
+        <div class="row match-height">
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Sales revenue - tổng DT</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div id="chart_9"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Sales revenue -  %/KPI</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div id="chart_10" class="mx-auto"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Sales revenue - tỷ trọng doanh thu các loại gói học phí (Vietnam, native, châu Á)</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div id="chart_11" class="mx-auto"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/student")
 
     </section>

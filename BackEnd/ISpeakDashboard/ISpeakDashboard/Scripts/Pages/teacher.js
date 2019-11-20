@@ -70,7 +70,7 @@ $(window).on("load", function () {
         legend: {
             itemMargin: {
                 horizontal: 2
-            },
+            }
         },
         dataLabels: {
             formatter: function (val, opts) {
@@ -96,28 +96,53 @@ $(window).on("load", function () {
     chart_2.render();
 
 
+
+
 //=============================================================================================================================================================
 //=============================================================================================================================================================
+    var chartOption_3 = {
+        chart: {
+            height: 350,
+            type: 'bar',
+            toolbar: {
+                show: false
+            }
+        },
+        colors: themeColors,
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '55%',
+            },
+        },
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        series: [{
+            name: 'Result',
+            data: [40, 45, 67, 50, 63, 61]
+        }, {
+            name: 'Target',
+            data: [60, 55, 60, 60, 65, 60]
+        }],
+        legend: {
+            offsetY: -10
+        },
+        xaxis: {
+            categories: ['-5', '-4', '-3', '-2', '-1', 'This week'],
+        },
+        fill: {
+            opacity: 1
+        }
+    }
+
     var chart_3 = new ApexCharts(
         document.querySelector("#chart_3"),
         chartOption_1
     );
     chart_3.render();
-
-//=============================================================================================================================================================
-//=============================================================================================================================================================
-    var chart_4 = new ApexCharts(
-        document.querySelector("#chart_4"),
-        chartOption_2
-    );
-    chart_4.render();
 });
 
 
-function addDropdown() {
-    $('.dropdown.dropdown-user.nav-item').addClass('show');
-}
-
-function removeDropdown() {
-    $('.dropdown.dropdown-user.nav-item').removeClass('show');
-}

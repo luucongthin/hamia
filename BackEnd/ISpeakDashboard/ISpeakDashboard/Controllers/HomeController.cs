@@ -7,15 +7,15 @@ namespace ISpeakDashboard.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Student()
         {
             dynamic _lstModel = new ExpandoObject();
             UserInfoModel _userInfo = new UserInfoModel();
-            Session["auth_sesion"] = "1";
+
             string _userID = !string.IsNullOrEmpty((string)Session["auth_sesion"]) ? Session["auth_sesion"].ToString() : "";
 
             //_userInfo = GetUserInfo(_userID);
-            _userInfo.Fullname = "THINLC";
+            _userInfo.Fullname = "ADMIN";
             _lstModel.UserInfo = _userInfo;
 
             ViewBag.UserName = _userInfo.Fullname;
@@ -29,6 +29,29 @@ namespace ISpeakDashboard.Controllers
             }
         }
 
+        public ActionResult Teacher()
+        {
+            dynamic _lstModel = new ExpandoObject();
+            UserInfoModel _userInfo = new UserInfoModel();
+
+            string _userID = !string.IsNullOrEmpty((string)Session["auth_sesion"]) ? Session["auth_sesion"].ToString() : "";
+
+            //_userInfo = GetUserInfo(_userID);
+            _userInfo.Fullname = "ADMIN";
+            _lstModel.UserInfo = _userInfo;
+
+            ViewBag.UserName = _userInfo.Fullname;
+
+            if (_userID == "")
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
         public ActionResult Login()
         {
             return View();
@@ -38,12 +61,13 @@ namespace ISpeakDashboard.Controllers
 
             UserInfoModel _userInfo = new UserInfoModel();
 
-            _userInfo = BUS.CheckUserLogin(user);
+            //_userInfo = BUS.CheckUserLogin(user);
+            _userInfo.Id = "1";
 
             if (_userInfo.Id != "")
             {
                 Session["auth_sesion"] = _userInfo.Id;
-                return RedirectToAction("Index");
+                return RedirectToAction("Student");
             }
             else {
                 return RedirectToAction("Login");
