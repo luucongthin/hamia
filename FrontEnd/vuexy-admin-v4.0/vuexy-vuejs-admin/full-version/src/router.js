@@ -64,6 +64,14 @@ const router = new Router({
                         rule: 'admin'
                     }
                 },
+                {
+                    path: '/admin/stores',
+                    name: 'admin-stores',
+                    component: () => import('./views/admin/stores.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },
 
 
         // =============================================================================
