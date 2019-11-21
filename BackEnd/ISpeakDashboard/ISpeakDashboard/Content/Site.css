@@ -12,3 +12,7 @@
     background-color: #7367F0;
     color: #fff;
 }
+
+#dashboard-analytics .card-content {
+    min-height: 400px;
+}
