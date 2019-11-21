@@ -32,6 +32,15 @@
                         <a id="teacher" class="menu-li" href="@Url.Action("Teacher", "Home")">
                             Teacher
                         </a>
+
+                        <div style="display: flex; align-items: center;">
+                            <span style="width: 180px">Loại báo cáo</span>
+                            <select class="type-report form-control" id="type-report" onchange="changeTypeReport()">
+                                <option value="0">Ngày</option>
+                                <option value="1">Tuần</option>
+                                <option value="2">Tháng</option>
+                            </select>
+                        </div>
                     </div>
                     <ul class="nav navbar-nav float-right">
                         <li class="dropdown dropdown-user nav-item" onmouseover="addDropdown()" onmouseout="removeDropdown()">

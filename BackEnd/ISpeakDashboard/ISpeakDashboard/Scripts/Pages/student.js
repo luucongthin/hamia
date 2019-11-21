@@ -1,5 +1,46 @@
 ﻿$(document).ready(function () {
 
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    var toDate = yyyy + '-' + mm + '-' + dd;
+
+    var typeReport = window.localStorage.typeReport;
+    var fromDate;
+
+    switch (typeReport) {
+        case '0': {
+            fromDate = yyyy + '-' + mm + '-01';
+            break;
+        }
+        case '1': {
+            fromDate = yyyy + '-' + mm + '-01';
+            break;
+        }
+        case '2': {
+            fromDate = yyyy + '-01-01';
+            break;
+        }
+        default: {
+            fromDate = yyyy + '-01-01';
+            break;
+        }
+    }
+
+    var dataReqChart = {
+        type: typeReport ? typeReport : 2,
+        fromDate: fromDate,
+        toDate: toDate,
+    }
+    
     var $primary = '#7367F0',
         $success = '#28C76F',
         $danger = '#EA5455',
@@ -73,16 +114,10 @@
 //=============================================================================================================================================================
     var chartOption_1 = columnOption;
 
-    var dataReqChart_1 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
-
     $.ajax({
         url: '/Home/Chart_1',
         type: "GET",
-        data: dataReqChart_1,
+        data: dataReqChart,
         success: function (response) {
             var serie_1 = {
                 name: 'Result',
@@ -121,16 +156,10 @@
     var chartOption_2 = pieOption;
     chartOption_2.legend.position = 'right';
 
-    var dataReqChart_2 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
-
     $.ajax({
         url: '/Home/Chart_2',
         type: "GET",
-        data: dataReqChart_2,
+        data: dataReqChart,
         success: function (response) {
             
             chartOption_2.labels = ['< 10 yo', '10 - 15 yo', '>15 yo'];
@@ -153,17 +182,12 @@
 //=============================================================================================================================================================
 //=============================================================================================================================================================
     var chartOption_3 = columnOption;
-    
-    var dataReqChart_3 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
+
 
     $.ajax({
         url: '/Home/Chart_3',
         type: "GET",
-        data: dataReqChart_3,
+        data: dataReqChart,
         success: function (response) {
             var serie_1 = {
                 name: 'Result',
@@ -200,16 +224,10 @@
     var chartOption_4 = pieOption;
     chartOption_4.legend.position = 'right';
 
-    var dataReqChart_4 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
-
     $.ajax({
         url: '/Home/Chart_4',
         type: "GET",
-        data: dataReqChart_4,
+        data: dataReqChart,
         success: function (response) {
 
             chartOption_4.labels = ['% học thử', 'số học viên activated'];
@@ -231,16 +249,10 @@
 
     var chartOption_5 = columnOption;
 
-    var dataReqChart_5 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
-
     $.ajax({
         url: '/Home/Chart_5',
         type: "GET",
-        data: dataReqChart_5,
+        data: dataReqChart,
         success: function (response) {
             var serie_1 = {
                 name: 'Result',
@@ -274,16 +286,10 @@
     chartOption_6.chart.height = 350;
     chartOption_6.legend.position = 'bottom';
 
-    var dataReqChart_6 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
-
     $.ajax({
         url: '/Home/Chart_6',
         type: "GET",
-        data: dataReqChart_6,
+        data: dataReqChart,
         success: function (response) {
 
             chartOption_6.labels = ['Học viên học thử', 'Học viên mới' ];
@@ -308,16 +314,11 @@
     chartOption_7.chart.height = 350;
     chartOption_7.legend.position = 'bottom';
 
-    var dataReqChart_7 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
 
     $.ajax({
         url: '/Home/Chart_7',
         type: "GET",
-        data: dataReqChart_7,
+        data: dataReqChart,
         success: function (response) {
 
             chartOption_7.labels = ['Học viên đăng ký', 'Học viên mới'];
@@ -341,16 +342,10 @@
     chartOption_8.chart.height = 350;
     chartOption_8.legend.position = 'bottom';
 
-    var dataReqChart_8 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
-
     $.ajax({
         url: '/Home/Chart_8',
         type: "GET",
-        data: dataReqChart_8,
+        data: dataReqChart,
         success: function (response) {
 
             chartOption_8.labels = ['Học viên đăng ký', 'Học viên mới'];
@@ -405,16 +400,10 @@
         }
     };
 
-    var dataReqChart_9 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
-
     $.ajax({
         url: '/Home/Chart_9',
         type: "GET",
-        data: dataReqChart_9,
+        data: dataReqChart,
         success: function (response) {
             var serie_1 = {
                 name: 'Result',
@@ -475,16 +464,10 @@
         }]
     };
 
-    var dataReqChart_10 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
-
     $.ajax({
         url: '/Home/Chart_10',
         type: "GET",
-        data: dataReqChart_10,
+        data: dataReqChart,
         success: function (response) {
 
             chartOption_10.labels = ['Sales revenue', 'KPI'];
@@ -520,16 +503,10 @@
 
     var chartOption_12 = columnOption;
 
-    var dataReqChart_12 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
-
     $.ajax({
         url: '/Home/Chart_12',
         type: "GET",
-        data: dataReqChart_12,
+        data: dataReqChart,
         success: function (response) {
             var serie_1 = {
                 name: 'Result',
@@ -563,16 +540,10 @@
     chartOption_13.chart.height = 350;
     chartOption_13.legend.position = 'bottom';
 
-    var dataReqChart_13 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
-
     $.ajax({
         url: '/Home/Chart_13',
         type: "GET",
-        data: dataReqChart_13,
+        data: dataReqChart,
         success: function (response) {
 
             chartOption_13.labels = ['Học viên học thử', 'Returned students'];
@@ -597,16 +568,11 @@
     chartOption_14.chart.height = 350;
     chartOption_14.legend.position = 'bottom';
 
-    var dataReqChart_14 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
 
     $.ajax({
         url: '/Home/Chart_14',
         type: "GET",
-        data: dataReqChart_14,
+        data: dataReqChart,
         success: function (response) {
 
             chartOption_14.labels = ['Học viên đăng ký', 'Returned students'];
@@ -630,16 +596,10 @@
     chartOption_15.chart.height = 350;
     chartOption_15.legend.position = 'bottom';
 
-    var dataReqChart_15 = {
-        type: 1,
-        fromDate: '2019-01-01',
-        toDate: '2019-12-01',
-    }
-
     $.ajax({
         url: '/Home/Chart_15',
         type: "GET",
-        data: dataReqChart_15,
+        data: dataReqChart,
         success: function (response) {
 
             chartOption_15.labels = ['Học viên mới', 'Returned students'];

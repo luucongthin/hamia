@@ -10,6 +10,14 @@
         student.classList.add('active');
         teacher.classList.remove('active');
     }
+
+    
+    if (window.localStorage.typeReport == null) {
+        window.localStorage.typeReport = 2
+    }
+
+    document.getElementById("type-report").value = window.localStorage.typeReport;
+    
 });
 
 function addDropdown() {
@@ -18,4 +26,10 @@ function addDropdown() {
 
 function removeDropdown() {
     $('.dropdown.dropdown-user.nav-item').removeClass('show');
+}
+
+function changeTypeReport() {
+    var typeReport = document.getElementById("type-report").value
+    window.localStorage.typeReport = typeReport;
+    window.location.href = "/"
 }
