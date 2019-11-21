@@ -80,6 +80,14 @@ const router = new Router({
                         rule: 'admin'
                     }
                 },
+                {
+                    path: '/admin/legislations',
+                    name: 'admin-legislations',
+                    component: () => import('./views/admin/legislations.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },
 
 
         // =============================================================================
