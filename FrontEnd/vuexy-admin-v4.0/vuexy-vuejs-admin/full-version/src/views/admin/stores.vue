@@ -9,7 +9,7 @@
 
 <template>
     <div id="admin-categories" class="admin-class">
-        <div class="vx-row mb-6">
+        <div class="vx-row mb-4">
             <div class="vx-col sm:w-2/12 w-full align-center pull-right">
                 <b>Industry</b>
             </div>
@@ -23,13 +23,13 @@
                 </vs-select>
             </div>
             <div class="vx-col sm:w-6/12 w-full">
-                <div>
+                <div class="button-search">
                     <vs-button color="success" class="mr-3" @click="">Import</vs-button>
                     <vs-button color="danger" class="" @click="">File mẫu</vs-button>
                 </div>
             </div>
         </div>
-        <div class="vx-row mb-6">
+        <div class="vx-row mb-4">
             <div class="vx-col sm:w-2/12 w-full align-center pull-right">
                 <b>File Import</b>
             </div>
@@ -37,13 +37,13 @@
                 <vs-input class="full-width" v-model="search_city" placeholder="" />
             </div>
             <div class="vx-col sm:w-6/12 w-full align-center">
-                <div>
+                <div class="button-search">
                     <vs-button color="success" class="mr-3"  @click="RunStart()">Search</vs-button>
                     <vs-button color="success" class="" @click="OpenPopupAddStores()">Add</vs-button>
                 </div>
             </div>
         </div>
-        <div class="vx-row mb-6">
+        <div class="vx-row mb-4">
             <div class="vx-col sm:w-2/12 w-full align-center pull-right">
                 <b>Tên cơ sở</b>
             </div>
@@ -51,7 +51,7 @@
                 <vs-input class="full-width" v-model="search_name" placeholder="" />
             </div>
         </div>
-        <div class="vx-row mb-6">
+        <div class="vx-row mb-4">
             <div class="vx-col sm:w-2/12 w-full align-center pull-right">
                 <b>Địa chỉ</b>
             </div>
@@ -59,6 +59,7 @@
                 <vs-input class="full-width" v-model="search_adress" placeholder="" />
             </div>
         </div>
+        <div class="border-search mb-4"></div>
         <div class="">
             <vs-table stripe :data="lst_stores">
                 <template slot="thead">
@@ -138,7 +139,7 @@
                             <b>Mã Xã</b>
                         </div>
                         <div class="vx-col sm:w-4/12 w-full">
-                            <vs-input class="w-full" type="email" v-model="ward_code" />
+                            <vs-input class="w-full" v-model="ward_code" />
                         </div>
                     </div>
                     <div class="vx-row mb-6">

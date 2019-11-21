@@ -9,9 +9,9 @@
 
 <template>
     <div id="admin-categories" class="admin-class">
-        <div class="vx-row mb-6">
+        <div class="vx-row mb-4">
             <div class="vx-col sm:w-2/12 w-full align-center pull-right">
-                <span>Industry Name</span>
+                <b>Industry Name</b>
             </div>
             <div class="vx-col sm:w-4/12 w-full">
                 <vx-input-group class="">
@@ -24,9 +24,12 @@
                 </vx-input-group>
             </div>
             <div class="vx-col sm:w-6/12">
-                <vs-button color="success" @click="RunStart()">Search</vs-button>
+                <div class="button-search">
+                    <vs-button color="success" @click="RunStart()">Search</vs-button>
+                </div>
             </div>
         </div>
+        <div class="border-search mb-4"></div>
         <div class="">
             <vs-table stripe :data="lst_categories">
                 <template slot="thead">
@@ -60,7 +63,8 @@
                         <vs-td>
                             <div class="d-flex table_edit">
                                 <vs-button color="success" @click="EditCategories(item)">Edit</vs-button>
-                                <vs-button color="danger" class="ml-3" @click="DeleteCategories(item.ID, item.Code)">Delete</vs-button>
+                                <vs-button color="danger" class="ml-3" @click="DeleteCategories(item.ID, item.Code)">
+                                    Delete</vs-button>
                             </div>
                         </vs-td>
                     </vs-tr>
@@ -68,23 +72,23 @@
             </vs-table>
             <vs-popup title="Industry Detail" :active.sync="popup">
                 <div title="Horizontal Form" code-toggler>
-                    <div class="vx-row mb-3">
-                        <div class="vx-col sm:w-2/12 w-full">
-                            <span>Code</span>
+                    <div class="vx-row mb-6">
+                        <div class="vx-col sm:w-2/12 w-full align-center pull-right">
+                            <b>Code</b>
                         </div>
                         <div class="vx-col sm:w-4/12 w-full">
                             <vs-input class="w-full" v-model="categories_code" />
                         </div>
-                        <div class="vx-col sm:w-2/12 w-full">
-                            <span>Name</span>
+                        <div class="vx-col sm:w-2/12 w-full align-center pull-right">
+                            <b>Name</b>
                         </div>
                         <div class="vx-col sm:w-4/12 w-full">
-                            <vs-input class="w-full" type="email" v-model="categories_name" />
+                            <vs-input class="w-full" v-model="categories_name" />
                         </div>
                     </div>
                     <div class="vx-row mb-6">
-                        <div class="vx-col sm:w-2/12 w-full">
-                            <span>Title</span>
+                        <div class="vx-col sm:w-2/12 w-full align-center pull-right">
+                            <b>Title</b>
                         </div>
                         <div class="vx-col sm:w-10/12 w-full">
                             <vs-input class="w-full" v-model="categories_title" />
@@ -92,8 +96,8 @@
                     </div>
                     <div class="vx-row">
                         <div class="vx-col sm:w-2/3 w-full ml-auto">
-                            <vs-button class="mr-3 mb-2" @click="AddCategories()">Save</vs-button>
-                            <vs-button color="warning" type="border" class="mb-2" @click="ClosePopup()">Cancel
+                            <vs-button color="success" class="mr-3 mb-2" @click="AddCategories()">Save</vs-button>
+                            <vs-button color="success" class="mb-2" @click="ClosePopup()">Cancel
                             </vs-button>
                         </div>
                     </div>
@@ -216,4 +220,7 @@
 </script>
 
 <style lang="scss">
+    .con-vs-popup .vs-popup {
+        width: 60%;
+    }
 </style>
