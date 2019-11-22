@@ -99,19 +99,34 @@ namespace ISpeakDashboard.DB
             con.Open();
 
             string sql = "select " +
-                            "FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') categories, " +
+                            "case" +
+                            "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                            "   when " + type + " = 1 then " +
+                            "       (case when (WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1) <> 0 then (WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1) else 'This week' end )" +
+                            "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end as categories," +
                             "sum(active) result, " +
                             "case " +
-                                "when " + type + " = 0 then 20 " + // day
-                                "when " + type + " = 1 then 100 " + // week
-                                "when " + type + " = 2 then 400 " + // month
+                                "when " + type + " = 0 then (select option_value from settings where option_key = 'number_of_activated_by_day') " + // day
+                                "when " + type + " = 1 then (select option_value from settings where option_key = 'number_of_activated_by_week') " + // week
+                                "when " + type + " = 2 then (select option_value from settings where option_key = 'number_of_activated_by_month') " + // month
                             "end as target " +
                         "from users U " +
                         "inner join students S on U.id = S.user_id " +
                         "where active = 1 " +
                         "and FROM_UNIXTIME(U.created_at, '%Y-%m-%d') between '" + from_date + "' and '" + to_date + "' " +
-                        "group by FROM_UNIXTIME(U.created_at, '%m') " +
-                        "order by FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y')";
+                        "group by " +
+                            "case" +
+                                "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                                "   when " + type + " = 1 then WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1 " +
+                                "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end " +
+                        "order by " +
+                            "case" +
+                                "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                                "   when " + type + " = 1 then WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) " +
+                                "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end ";
 
             MySqlCommand cmd = new MySqlCommand(sql, con);
 
@@ -180,18 +195,33 @@ namespace ISpeakDashboard.DB
             con.Open();
 
             string sql = "select " +
-                            "FROM_UNIXTIME(created_at, 'Tháng %m-%Y') categories, " +
+                            "case" +
+                            "   when " + type + " = 0 then FROM_UNIXTIME(created_at, 'Ngày %d-%m-%Y') " +
+                            "   when " + type + " = 1 then " +
+                            "       (case when (WEEK(FROM_UNIXTIME(created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1) <> 0 then (WEEK(FROM_UNIXTIME(created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1) else 'This week' end )" +
+                            "   when " + type + " = 2 then FROM_UNIXTIME(created_at, 'Tháng %m-%Y') " +
+                            "end as categories," +
                             "sum(is_trialed) result, " +
                             "case " +
-                                "when " + type + " = 0 then 20 " + // day
-                                "when " + type + " = 1 then 100 " + // week
-                                "when " + type + " = 2 then 400 " + // month
+                                "when " + type + " = 0 then (select option_value from settings where option_key = 'number_of_trial_classes_by_day') " + // day
+                                "when " + type + " = 1 then (select option_value from settings where option_key = 'number_of_trial_classes_by_week') " + // week
+                                "when " + type + " = 2 then (select option_value from settings where option_key = 'number_of_trial_classes_by_month') " + // month
                             "end as target " +
                         "from students " +
                         "where is_trialed = 1 " +
                         "and FROM_UNIXTIME(created_at, '%Y-%m-%d') between '" + from_date + "' and '" + to_date + "' " +
-                        "group by FROM_UNIXTIME(created_at, '%m') " +
-                        "order by FROM_UNIXTIME(created_at, 'Tháng %m-%Y')";
+                        "group by " +
+                            "case" +
+                                "   when " + type + " = 0 then FROM_UNIXTIME(created_at, 'Ngày %d-%m-%Y') " +
+                                "   when " + type + " = 1 then WEEK(FROM_UNIXTIME(created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1 " +
+                                "   when " + type + " = 2 then FROM_UNIXTIME(created_at, 'Tháng %m-%Y') " +
+                            "end " +
+                        "order by " +
+                            "case" +
+                                "   when " + type + " = 0 then FROM_UNIXTIME(created_at, 'Ngày %d-%m-%Y') " +
+                                "   when " + type + " = 1 then WEEK(FROM_UNIXTIME(created_at,'%Y-%m-%d')) " +
+                                "   when " + type + " = 2 then FROM_UNIXTIME(created_at, 'Tháng %m-%Y') " +
+                            "end ";
 
             MySqlCommand cmd = new MySqlCommand(sql, con);
 
@@ -255,14 +285,29 @@ namespace ISpeakDashboard.DB
             con.Open();
 
             string sql = "select " +
-                            "FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') categories, " +
+                            "case" +
+                            "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                            "   when " + type + " = 1 then " +
+                            "       (case when (WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1) <> 0 then (WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1) else 'This week' end )" +
+                            "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end as categories," +
                             "sum(case when total_booking = 1 then 1 else 0 end) result " +
                         "from users U " +
                         "inner join students S on U.id = S.user_id " +
                         "where total_booking = 1 " +
                         "and FROM_UNIXTIME(U.created_at, '%Y-%m-%d') between '" + from_date + "' and '" + to_date + "' " +
-                        "group by FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
-                        "order by FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y')";
+                        "group by " +
+                            "case" +
+                                "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                                "   when " + type + " = 1 then WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1 " +
+                                "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end " +
+                        "order by " +
+                            "case" +
+                                "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                                "   when " + type + " = 1 then WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) " +
+                                "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end ";
 
             MySqlCommand cmd = new MySqlCommand(sql, con);
 
@@ -385,13 +430,28 @@ namespace ISpeakDashboard.DB
             con.Open();
 
             string sql = "select " +
-                            "FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') categories, " +
+                           "case" +
+                            "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                            "   when " + type + " = 1 then " +
+                            "       (case when (WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1) <> 0 then (WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1) else 'This week' end )" +
+                            "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end as categories," +
                             "sum(total_money) result " +
                         "from users U " +
                         "inner join students S on U.id = S.user_id " +
                         "where FROM_UNIXTIME(U.created_at, '%Y-%m-%d') between '" + from_date + "' and '" + to_date + "' " +
-                        "group by FROM_UNIXTIME(U.created_at, '%m') " +
-                        "order by FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y')";
+                        "group by " +
+                            "case" +
+                                "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                                "   when " + type + " = 1 then WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1 " +
+                                "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end " +
+                        "order by " +
+                            "case" +
+                                "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                                "   when " + type + " = 1 then WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) " +
+                                "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end ";
 
             MySqlCommand cmd = new MySqlCommand(sql, con);
 
@@ -423,9 +483,9 @@ namespace ISpeakDashboard.DB
             string sql = "select  " +
                             "sum(total_money) col_1, " +
                             "case " +
-                                "when " + type + " = 0 then 20000000 " + // day
-                                "when " + type + " = 1 then 150000000 " + // week
-                                "when " + type + " = 2 then 300000000 " + // month
+                                "when " + type + " = 0 then (select option_value from settings where option_key = 'total_revenue_by_day') " + // day
+                                "when " + type + " = 1 then (select option_value from settings where option_key = 'total_revenue_by_week') " + // week
+                                "when " + type + " = 2 then (select option_value from settings where option_key = 'total_revenue_by_month') " + // month
                             "end as col_2 " +
                         "from users U " +
                         "inner join students S on U.id = S.user_id " +
@@ -456,14 +516,29 @@ namespace ISpeakDashboard.DB
             con.Open();
 
             string sql = "select " +
-                            "FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') categories, " +
+                            "case" +
+                            "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                            "   when " + type + " = 1 then " +
+                            "       (case when (WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1) <> 0 then (WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1) else 'This week' end )" +
+                            "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end as categories," +
                             "sum(case when S.total_booking > 1 then 1 else 0 end) result " +
                         "from users U " +
                         "inner join students S on U.id = S.user_id " +
                         "where total_booking > 1 " +
                         "and FROM_UNIXTIME(U.created_at, '%Y-%m-%d') between '" + from_date + "' and '" + to_date + "' " +
-                        "group by FROM_UNIXTIME(U.created_at, '%m') " +
-                        "order by FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y')";
+                        "group by " +
+                            "case" +
+                                "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                                "   when " + type + " = 1 then WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1 " +
+                                "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end " +
+                        "order by " +
+                            "case" +
+                                "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                                "   when " + type + " = 1 then WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) " +
+                                "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end ";
 
             MySqlCommand cmd = new MySqlCommand(sql, con);
 
@@ -578,5 +653,99 @@ namespace ISpeakDashboard.DB
         }
         #endregion
 
+        // TEACHCER
+
+        #region Chart_16
+        public static List<ChartModel_1> GetDataChart_16(int type, string from_date, string to_date)
+        {
+            List<ChartModel_1> _lstChart = new List<ChartModel_1>();
+            MySqlConnection con = connection.loadDB();
+            con.Open();
+
+            string sql = "select " +
+                            "case" +
+                            "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                            "   when " + type + " = 1 then " +
+                            "       (case when (WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1) <> 0 then (WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1) else 'This week' end )" +
+                            "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end as categories," +
+                            "sum(active) result, " +
+                            "case " +
+                                "when " + type + " = 0 then (select option_value from settings where option_key = 'number_of_registered_teachers_by_day') " + // day
+                                "when " + type + " = 1 then (select option_value from settings where option_key = 'number_of_registered_teachers_by_week') " + // week
+                                "when " + type + " = 2 then (select option_value from settings where option_key = 'number_of_registered_teachers_by_month') " + // month
+                            "end as target " +
+                        "from users U " +
+                        "inner join teachers S on U.id = S.user_id " +
+                        "where active = 1 " +
+                        "and FROM_UNIXTIME(U.created_at, '%Y-%m-%d') between '" + from_date + "' and '" + to_date + "' " +
+                        "group by " +
+                            "case" +
+                                "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                                "   when " + type + " = 1 then WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) -  WEEK('" + to_date + "') + 1 " +
+                                "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end " +
+                        "order by " +
+                            "case" +
+                                "   when " + type + " = 0 then FROM_UNIXTIME(U.created_at, 'Ngày %d-%m-%Y') " +
+                                "   when " + type + " = 1 then WEEK(FROM_UNIXTIME(U.created_at,'%Y-%m-%d')) " +
+                                "   when " + type + " = 2 then FROM_UNIXTIME(U.created_at, 'Tháng %m-%Y') " +
+                            "end ";
+
+            MySqlCommand cmd = new MySqlCommand(sql, con);
+
+
+            MySqlDataReader _dataReader = cmd.ExecuteReader();
+            if (_dataReader.HasRows)
+            {
+                while (_dataReader.Read())
+                {
+                    ChartModel_1 _chart = new ChartModel_1();
+                    _chart.categories = _dataReader["categories"].ToString();
+                    _chart.target = _dataReader["target"].ToString();
+                    _chart.result = _dataReader["result"].ToString();
+                    _lstChart.Add(_chart);
+                }
+            }
+            _dataReader.Close();
+
+            return _lstChart;
+        }
+        #endregion
+
+        #region Chart_17
+        public static List<ChartModel_2> GetDataChart_17(int type, string from_date, string to_date)
+        {
+            MySqlConnection con = connection.loadDB();
+            List<ChartModel_2> _lst = new List<ChartModel_2> ();
+            con.Open();
+
+            string sql = "select  " +
+                            "SUM(1) as col_1, " +
+                            "TL.name as col_2 " +
+                        "from teachers T " +
+                        "left join teacher_levels TL on T.level_id = TL.id " +
+                        "where  FROM_UNIXTIME(T.created_at, '%Y-%m-%d') between '" + from_date + "' and '" + to_date + "' " +
+                        "group by TL.name";
+
+            MySqlCommand cmd = new MySqlCommand(sql, con);
+
+
+            MySqlDataReader _dataReader = cmd.ExecuteReader();
+            if (_dataReader.HasRows)
+            {
+                while (_dataReader.Read())
+                {
+                    ChartModel_2 _chart = new ChartModel_2();
+                    _chart.col_1 = _dataReader["col_1"].ToString();
+                    _chart.col_2 = _dataReader["col_2"].ToString();
+                    _lst.Add(_chart);
+                }
+            }
+            _dataReader.Close();
+
+            return _lst;
+        }
+        #endregion
     }
 }

@@ -3,7 +3,6 @@
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
-
     var yyyy = today.getFullYear();
     if (dd < 10) {
         dd = '0' + dd;
@@ -11,7 +10,8 @@
     if (mm < 10) {
         mm = '0' + mm;
     }
-    var toDate = yyyy + '-' + mm + '-' + dd;
+
+    var toDate = dateToString(today);
 
     var typeReport = window.localStorage.typeReport;
     var fromDate;
@@ -22,7 +22,8 @@
             break;
         }
         case '1': {
-            fromDate = yyyy + '-' + mm + '-01';
+            var pre_6_week = today.setDate(today.getDate() - 42); //6 week
+            fromDate = dateToString(pre_6_week)
             break;
         }
         case '2': {

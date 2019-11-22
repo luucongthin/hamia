@@ -43,7 +43,7 @@ namespace ISpeakDashboard
                     "~/Assets/vendors/js/tables/datatable/buttons.print.min.js",
                     "~/Assets/vendors/js/tables/datatable/buttons.bootstrap.min.js",
                     "~/Assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js",
-                    "~/Assets/js/scripts/datatables/datatable.js",
+                    //"~/Assets/js/scripts/datatables/datatable.js",
                     "~/Scripts/Pages/teacher.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/student").Include(

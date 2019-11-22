@@ -1,4 +1,46 @@
-$(window).on("load", function () {
+$(document).ready(function () {
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+
+    var toDate = dateToString(today);
+
+    var typeReport = window.localStorage.typeReport;
+    var fromDate;
+
+    switch (typeReport) {
+        case '0': {
+            fromDate = yyyy + '-' + mm + '-01';
+            break;
+        }
+        case '1': {
+            var pre_6_week = today.setDate(today.getDate() - 42); //6 week
+            fromDate = dateToString(pre_6_week)
+            break;
+        }
+        case '2': {
+            fromDate = yyyy + '-01-01';
+            break;
+        }
+        default: {
+            fromDate = yyyy + '-01-01';
+            break;
+        }
+    }
+
+    var dataReqChart = {
+        type: typeReport ? typeReport : 2,
+        fromDate: fromDate,
+        toDate: toDate,
+    }
 
     var $primary = '#7367F0',
         $success = '#28C76F',
@@ -9,9 +51,7 @@ $(window).on("load", function () {
 
     var themeColors = [$success, $warning, $danger, $info, $primary, $label_color_light];
 
-//=============================================================================================================================================================
-//=============================================================================================================================================================
-    var chartOption_1 = {
+    var columnOption = {
         chart: {
             height: 350,
             type: 'bar',
@@ -31,42 +71,23 @@ $(window).on("load", function () {
             width: 2,
             colors: ['transparent']
         },
-        series: [{
-            name: 'Result',
-            data: [47, 54, 64, 59, 70, 61]
-        }, {
-            name: 'Target',
-            data: [60, 55, 60, 60, 65, 60]
-        }],
-        legend: {
-            offsetY: -10
-        },
-        xaxis: {
-            categories: ['-5', '-4', '-3', '-2', '-1', 'This week'],
-        },
         fill: {
             opacity: 1
+        },
+        series: [],
+        xaxis: {
+            categories: []
         }
     }
-    var chart_1 = new ApexCharts(
-        document.querySelector("#chart_1"),
-        chartOption_1
-    );
 
-    chart_1.render();
-
-
-//=============================================================================================================================================================
-//=============================================================================================================================================================
-
-    var chartOption_2 = {
+    var pieOption = {
         chart: {
             type: 'pie',
             height: 350
         },
         colors: themeColors,
-        labels: ['< 10 yo', '10 - 15 yo', '>15 yo'],
-        series: [6, 30, 25],
+        labels: [],
+        series: [],
         legend: {
             itemMargin: {
                 horizontal: 2
@@ -89,60 +110,78 @@ $(window).on("load", function () {
             }
         }]
     }
-    var chart_2 = new ApexCharts(
-        document.querySelector("#chart_2"),
-        chartOption_2
-    );
-    chart_2.render();
 
+    //=============================================================================================================================================================
+    //=============================================================================================================================================================
+    var chartOption_16 = columnOption;
 
+    $.ajax({
+        url: '/Home/Chart_16',
+        type: "GET",
+        data: dataReqChart,
+        success: function (response) {
+            var serie_1 = {
+                name: 'Result',
+                data: []
+            };
+            var serie_2 = {
+                name: 'Target',
+                data: []
+            };
 
+            chartOption_16.xaxis.categories = [];
 
-//=============================================================================================================================================================
-//=============================================================================================================================================================
-    var chartOption_3 = {
-        chart: {
-            height: 350,
-            type: 'bar',
-            toolbar: {
-                show: false
-            }
+            response.forEach(function (element) {
+                serie_1.data.push(parseInt(element.result));
+                serie_2.data.push(parseInt(element.target));
+                chartOption_16.xaxis.categories.push(element.categories);
+            });
+            chartOption_16.series = [serie_1, serie_2];
+
+            var chart_16 = new ApexCharts(
+                document.querySelector("#chart_16"),
+                chartOption_16
+            );
+
+            chart_16.render();
         },
-        colors: themeColors,
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                columnWidth: '55%',
-            },
-        },
-        stroke: {
-            show: true,
-            width: 2,
-            colors: ['transparent']
-        },
-        series: [{
-            name: 'Result',
-            data: [40, 45, 67, 50, 63, 61]
-        }, {
-            name: 'Target',
-            data: [60, 55, 60, 60, 65, 60]
-        }],
-        legend: {
-            offsetY: -10
-        },
-        xaxis: {
-            categories: ['-5', '-4', '-3', '-2', '-1', 'This week'],
-        },
-        fill: {
-            opacity: 1
+        error: function (error) {
+            console.log(error);
         }
-    }
+    });
 
-    var chart_3 = new ApexCharts(
-        document.querySelector("#chart_3"),
-        chartOption_1
-    );
-    chart_3.render();
+
+    //=============================================================================================================================================================
+    //=============================================================================================================================================================
+
+    var chartOption_17 = pieOption;
+
+    $.ajax({
+        url: '/Home/Chart_17',
+        type: "GET",
+        data: dataReqChart,
+        success: function (response) {
+            chartOption_17.labels = [];
+            chartOption_17.series = [];
+
+            for (var i = 0; i < response.length; i++) {
+                chartOption_17.labels.push(response[i].col_2);
+                chartOption_17.series.push(parseInt(response[i].col_1))
+            }
+
+            var chart_17 = new ApexCharts(
+                document.querySelector("#chart_17"),
+                chartOption_17
+            );
+            chart_17.render();
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    //=============================================================================================================================================================
+    //=============================================================================================================================================================
+
+    $('#zero-configuration').DataTable();
 });
-
-
