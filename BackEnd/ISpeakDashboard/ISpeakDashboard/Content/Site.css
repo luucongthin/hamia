@@ -16,3 +16,7 @@
 #dashboard-analytics .card-content {
     min-height: 400px;
 }
+
+.horizontal-menu.navbar-floating:not(.blank-page) .app-content {
+    padding-top: 65px;
+}
