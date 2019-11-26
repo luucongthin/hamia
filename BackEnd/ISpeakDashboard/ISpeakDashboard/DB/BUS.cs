@@ -91,6 +91,8 @@ namespace ISpeakDashboard.DB
 
         #endregion
 
+        // STUDENT
+
         #region Chart_1
         public static List<ChartModel_1> GetDataChart_1(int type, string from_date, string to_date)
         {
@@ -720,13 +722,14 @@ namespace ISpeakDashboard.DB
             List<ChartModel_2> _lst = new List<ChartModel_2> ();
             con.Open();
 
-            string sql = "select  " +
-                            "SUM(1) as col_1, " +
-                            "TL.name as col_2 " +
-                        "from teachers T " +
-                        "left join teacher_levels TL on T.level_id = TL.id " +
-                        "where  FROM_UNIXTIME(T.created_at, '%Y-%m-%d') between '" + from_date + "' and '" + to_date + "' " +
-                        "group by TL.name";
+            string sql ="select" +
+                        "   locations.name col_1, " +
+                        "   count(*) as col_2" +
+                        " from orders " +
+                        " left join packages on packages.id = orders.pack_id " +
+                        " left join locations on locations.id = packages.location_id " +
+                        " where  FROM_UNIXTIME(orders.checkout_at, '%Y-%m-%d') between '" + from_date + "' and '" + to_date + "' " +
+                        " group by locations.name; ";
 
             MySqlCommand cmd = new MySqlCommand(sql, con);
 
@@ -739,6 +742,55 @@ namespace ISpeakDashboard.DB
                     ChartModel_2 _chart = new ChartModel_2();
                     _chart.col_1 = _dataReader["col_1"].ToString();
                     _chart.col_2 = _dataReader["col_2"].ToString();
+                    _lst.Add(_chart);
+                }
+            }
+            _dataReader.Close();
+
+            return _lst;
+        }
+        #endregion
+
+        #region Chart_18
+        public static List<ChartModel_2> GetDataChart_18(int type, string from_date, string to_date)
+        {
+            MySqlConnection con = connection.loadDB();
+            List<ChartModel_2> _lst = new List<ChartModel_2>();
+            con.Open();
+
+            string sql =" select " +
+                        "   users.fullname as col_0," +
+                        "   sum(case when status_id = 1 then 1 else 0 end) col_1," +
+                        "   sum(case when status_id = 2 then 1 else 0 end) col_2," +
+                        "   sum(case when status_id = 3 then 1 else 0 end) col_3," +
+                        "   sum(case when status_id = 4 then 1 else 0 end) col_4," +
+                        "   sum(case when status_id = 5 then 1 else 0 end) col_5," +
+                        "   sum(case when status_id = 6 then 1 else 0 end) col_6" +
+                        " from bookings" +
+                        " left join calendars on calendars.id = bookings.calendar_id" +
+                        " left join teachers on teachers.id = calendars.teacher_id" +
+                        " left join users on teachers.user_id = users.id" +
+                        " where users.fullname is not null" +
+                        "   and FROM_UNIXTIME(calendars.end_time, '%Y-%m-%d') between '" + from_date + "' and '" + to_date + "' " +
+                        " group by users.fullname" +
+                        " order by col_1 desc; ";
+
+            MySqlCommand cmd = new MySqlCommand(sql, con);
+
+
+            MySqlDataReader _dataReader = cmd.ExecuteReader();
+            if (_dataReader.HasRows)
+            {
+                while (_dataReader.Read())
+                {
+                    ChartModel_2 _chart = new ChartModel_2();
+                    _chart.col_0 = _dataReader["col_0"].ToString();
+                    _chart.col_1 = _dataReader["col_1"].ToString();
+                    _chart.col_2 = _dataReader["col_2"].ToString();
+                    _chart.col_3 = _dataReader["col_3"].ToString();
+                    _chart.col_4 = _dataReader["col_4"].ToString();
+                    _chart.col_5 = _dataReader["col_5"].ToString();
+                    _chart.col_6 = _dataReader["col_6"].ToString();
                     _lst.Add(_chart);
                 }
             }

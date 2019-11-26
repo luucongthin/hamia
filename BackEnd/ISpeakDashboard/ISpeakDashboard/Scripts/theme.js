@@ -17,7 +17,12 @@
     }
 
     document.getElementById("type-report").value = window.localStorage.typeReport;
-    
+
+
+    // Reload page
+    setInterval(function () {
+        window.location.href = window.location.href    
+    }, 1000 * 60 * 15)
 });
 
 function addDropdown() {

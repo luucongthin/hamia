@@ -224,6 +224,16 @@ namespace ISpeakDashboard.Controllers
             return Json(dataRes, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult Chart_18(int type, string fromDate, string toDate)
+        {
+
+            List<ChartModel_2> dataRes = new List<ChartModel_2>();
+
+            dataRes = BUS.GetDataChart_18(type, fromDate, toDate);
+
+            return Json(dataRes, JsonRequestBehavior.AllowGet);
+        }
+
         #region Check user
         public ActionResult CheckUserLogin(UserLoginModel user) {
 

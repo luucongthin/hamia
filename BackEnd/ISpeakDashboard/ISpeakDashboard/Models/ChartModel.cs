@@ -14,9 +14,13 @@ namespace ISpeakDashboard.Models
 
     public class ChartModel_2
     {
+        public string col_0 { get; set; }
         public string col_1 { get; set; }
         public string col_2 { get; set; }
         public string col_3 { get; set; }
+        public string col_4 { get; set; }
+        public string col_5 { get; set; }
+        public string col_6 { get; set; }
     }
 
 

@@ -23,7 +23,7 @@ namespace ISpeakDashboard
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/theme").Include(
-                    "~/Assets/vendors/js/vendors.min.js",
+                    //"~/Assets/vendors/js/vendors.min.js",
                     "~/Assets/vendors/js/ui/jquery.sticky.js",
                     "~/Assets/vendors/js/charts/apexcharts.min.js",
                     "~/Assets/vendors/js/extensions/tether.min.js",

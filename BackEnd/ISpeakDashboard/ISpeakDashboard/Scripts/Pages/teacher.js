@@ -165,8 +165,8 @@ $(document).ready(function () {
             chartOption_17.series = [];
 
             for (var i = 0; i < response.length; i++) {
-                chartOption_17.labels.push(response[i].col_2);
-                chartOption_17.series.push(parseInt(response[i].col_1))
+                chartOption_17.labels.push(response[i].col_1);
+                chartOption_17.series.push(parseInt(response[i].col_2))
             }
 
             var chart_17 = new ApexCharts(
@@ -183,5 +183,32 @@ $(document).ready(function () {
     //=============================================================================================================================================================
     //=============================================================================================================================================================
 
-    $('#zero-configuration').DataTable();
+    $.ajax({
+        url: '/Home/Chart_18',
+        type: "GET",
+        data: dataReqChart,
+        success: function(response) {
+
+            var dataSet = [];
+            for (var i = 0; i < response.length; i++) {
+                item = [response[i].col_0, response[i].col_1, response[i].col_2, response[i].col_3, response[i].col_4];
+                dataSet.push(item);
+            }
+
+            $('#zero-configuration').DataTable({
+                data: dataSet,
+                order: [[1, "desc"]],
+                columns: [
+                    { title: "Teacher" },
+                    { title: "Done" },
+                    { title: "Student absent" },
+                    { title: "Teacher absent" },
+                    { title: "Canceled by Student" }
+                ]
+            });
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
 });
