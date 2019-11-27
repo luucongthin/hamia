@@ -26,7 +26,7 @@
             <div class="vx-col sm:w-6/12 w-full">
                 <div class="button-search">
                     <vs-button color="success" class="mr-3" @click="">Import</vs-button>
-                    <vs-button color="danger" class="" @click="">File mẫu</vs-button>
+                    <vs-button color="danger" class="" @click="OpenFile">File mẫu</vs-button>
                 </div>
             </div>
         </div>
@@ -347,7 +347,10 @@
                 vm.ward_code = item.WardCode;
                 vm.ward_name = item.WardName;
                 vm.locations_id = item.ID;
-            }
+            },
+            OpenFile() {
+                window.open('http://navisoft.bobbylct.com/i18n/file/Legislation_Meansuers.xls');
+            },
         }
     }
 </script>

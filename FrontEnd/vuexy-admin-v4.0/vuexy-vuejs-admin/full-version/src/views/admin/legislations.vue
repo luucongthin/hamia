@@ -11,22 +11,32 @@
     <div id="admin-categories" class="admin-class">
         <div class="vx-row mb-4">
             <div class="vx-col sm:w-2/12 w-full align-center pull-right">
-                <b>File Import</b>
+                <b>Industry</b>
             </div>
             <div class="vx-col sm:w-4/12 w-full">
-                <vx-input-group class="">
-                    <template slot="prepend">
-                        <div class="prepend-text bg-success">
-                            <span>i</span>
-                        </div>
-                    </template>
-                    <vs-input v-model="txt_search" placeholder="Email" />
-                </vx-input-group>
+                <vs-select class="full-width" label="" v-model="search_categories">
+                    <vs-select-item :key="index" :value="item.Code" :text="item.Code + ' - ' + item.Name"
+                        v-for="item,index in lst_categories" />
+                </vs-select>
             </div>
             <div class="vx-col sm:w-6/12 w-full">
                 <div class="button-search">
-                    <vs-button color="success" class="mr-3" @click="">Import</vs-button>
-                    <vs-button color="danger" class="" @click="">File mẫu</vs-button>
+                    <vs-button color="success" class="mr-3" @click="Import()" :disabled="disabled">Import</vs-button>
+                    <vs-button color="danger" class="" @click="OpenFile()">File mẫu</vs-button>
+                </div>
+            </div>
+        </div>
+        <div class="vx-row mb-4">
+            <div class="vx-col sm:w-2/12 w-full align-center pull-right">
+                <b>File Import</b>
+            </div>
+            <div class="vx-col sm:w-4/12 w-full">
+                <vs-input class="w-full" type="file" accept=".xls" v-model="file" v-on:change="ImportFile()" />
+            </div>
+            <div class="vx-col sm:w-6/12 w-full">
+                <div class="button-search">
+                    <vs-button color="success" class="mr-3" @click="RunStart()">Search</vs-button>
+                    <vs-button color="success" class="" @click="OpenPopupAddLegislation()">Add New</vs-button>
                 </div>
             </div>
         </div>
@@ -35,33 +45,20 @@
                 <b>Start Date</b>
             </div>
             <div class="vx-col sm:w-4/12 w-full">
-                <datepicker :language="vi" ></datepicker>
-            </div>
-            <div class="vx-col sm:w-2/12 w-full align-center pull-right">
-                <b>Quận/Huyện</b>
-            </div>
-            <div class="vx-col sm:w-4/12 w-full">
-                <vs-input class="full-width" v-model="search_district" placeholder="" />
+                <datepicker :language="vi" v-model="search_start_date"></datepicker>
             </div>
         </div>
         <div class="vx-row mb-4">
             <div class="vx-col sm:w-2/12 w-full align-center pull-right">
-                <b>Xã/Phường</b>
+                <b>End Date</b>
             </div>
             <div class="vx-col sm:w-4/12 w-full">
-                <vs-input class="full-width" v-model="search_ward" placeholder="" />
-            </div>
-            <div class="vx-col sm:w-2/12 w-full align-center">
-            </div>
-            <div class="vx-col sm:w-4/12 w-full align-center">
-                <div class="button-search">
-                    <vs-button color="success" class="" @click="RunStart()">Search</vs-button>
-                </div>
+                <datepicker :language="vi" v-model="search_end_date"></datepicker>
             </div>
         </div>
         <div class="border-search mb-4"></div>
         <div class="">
-            <vs-table stripe :data="lst_locations">
+            <vs-table stripe :data="lst_legislation">
                 <template slot="thead">
                     <vs-th>
                         Title
@@ -114,63 +111,77 @@
                 <div title="Horizontal Form" code-toggler>
                     <div class="vx-row mb-6">
                         <div class="vx-col sm:w-2/12 w-full align-center pull-right">
-                            <b>Mã Tỉnh/Thành phố</b>
+                            <b>Category</b>
                         </div>
                         <div class="vx-col sm:w-4/12 w-full">
-                            <vs-input class="w-full" v-model="city_code" />
+                            <vs-select
+                            class="full-width"
+                            label=""
+                            v-model="category_code"
+                            >
+                                <vs-select-item :key="index" :value="item.Code" :text="item.Code + ' - ' + item.Name" v-for="item,index in lst_categories" />
+                            </vs-select>
                         </div>
                         <div class="vx-col sm:w-2/12 w-full align-center pull-right">
-                            <b>Mã Quận/Huyện</b>
+                            <b>Start Date</b>
                         </div>
                         <div class="vx-col sm:w-4/12 w-full">
-                            <vs-input class="w-full" v-model="district_code" />
+                            <datepicker :language="vi" v-model="start_date"></datepicker>
                         </div>
                     </div>
                     <div class="vx-row mb-6">
                         <div class="vx-col sm:w-2/12 w-full align-center pull-right">
-                            <b>Tỉnh/Thành phố</b>
+                            <b>Title</b>
                         </div>
                         <div class="vx-col sm:w-4/12 w-full">
-                            <vs-input class="w-full" v-model="city_name" />
+                            <vs-input class="w-full" v-model="title" />
                         </div>
                         <div class="vx-col sm:w-2/12 w-full align-center pull-right">
-                            <b>Quận/Huyện</b>
+                            <b>End Date</b>
                         </div>
                         <div class="vx-col sm:w-4/12 w-full">
-                            <vs-input class="w-full" v-model="district_name" />
+                            <datepicker :language="vi" v-model="end_date"></datepicker>
                         </div>
                     </div>
                     <div class="vx-row mb-6">
                         <div class="vx-col sm:w-2/12 w-full align-center pull-right">
-                            <b>Mã Xã</b>
+                            <b>Implementing Authority</b>
                         </div>
                         <div class="vx-col sm:w-4/12 w-full">
-                            <vs-input class="w-full" v-model="ward_code" />
+                            <vs-input class="w-full" v-model="implementing_authority" />
                         </div>
                         <div class="vx-col sm:w-2/12 w-full align-center pull-right">
-                            <b>Population</b>
+                            <b>Reporter</b>
                         </div>
                         <div class="vx-col sm:w-4/12 w-full">
-                            <vs-input class="w-full" v-model="population" />
+                            <vs-input class="w-full" v-model="reporter" />
                         </div>
                     </div>
                     <div class="vx-row mb-6">
                         <div class="vx-col sm:w-2/12 w-full align-center pull-right">
-                            <b>Xã Phường</b>
+                            <b>Agency</b>
                         </div>
                         <div class="vx-col sm:w-4/12 w-full">
-                            <vs-input class="w-full" v-model="ward_name" />
+                            <vs-input class="w-full" v-model="agency" />
+                        </div>
+                    </div>
+                    <div class="vx-row mb-6">
+                        <div class="vx-col sm:w-2/12 w-full align-center pull-right">
+                            <b>Description</b>
+                        </div>
+                        <div class="vx-col sm:w-4/12 w-full">
+                            <vs-textarea v-model="description" />
                         </div>
                         <div class="vx-col sm:w-2/12 w-full align-center pull-right">
-                            <b>Area</b>
+                            <b>Summary</b>
                         </div>
                         <div class="vx-col sm:w-4/12 w-full">
-                            <vs-input class="w-full" v-model="area" />
+                            <vs-textarea v-model="summary" />
                         </div>
                     </div>
                     <div class="vx-row">
                         <div class="vx-col sm:w-2/3 w-full ml-auto">
-                            <vs-button color="success" class="mr-3 mb-2" @click="AddLocations()">Save</vs-button>
+                            <vs-button color="success" class="mr-3 mb-2" @click="AddLegislation()">Save</vs-button>
                             <vs-button color="success" class="mb-2" @click="ClosePopup()">Cancel</vs-button>
                         </div>
                     </div>
@@ -183,30 +194,35 @@
 <script>
     import axios from 'axios';
     import Datepicker from 'vuejs-datepicker';
-    import {en, vi} from 'vuejs-datepicker/dist/locale'
-    
+    import { en, vi } from 'vuejs-datepicker/dist/locale'
+    import moment from 'moment'
+
     export default {
         data() {
             return {
                 en: en,
                 vi: vi,
+                lst_categories: [],
                 lst_legislation: [],
                 popup: false,
                 title_popup: 'Locations Detail',
-                city_code: '',
-                district_code: '',
-                city_name: '',
-                district_name: '',
-                ward_code: '',
-                population: '',
-                ward_name: '',
-                area: '',
-                locations_id: 0,
+                title: '',
+                category_code: '',
+                start_date: '',
+                end_date: '',
+                implementing_authority: '',
+                reporter: '',
+                agency: '',
+                description: '',
+                summary: '',
+                legislation_id: 0,
                 page: 1,
                 total: 0,
-                search_city: '',
-                search_district: '',
-                search_ward: ''
+                search_categories: '',
+                search_start_date: 'Tue Nov 05 2019 15:37:00 GMT+0700 (Giờ Đông Dương)',
+                search_end_date: '',
+                disabled: true,
+                file: ''
             }
         },
         components: {
@@ -214,8 +230,17 @@
         },
         created() {
             this.RunStart();
+            this.RunCategories();
         },
         methods: {
+            RunCategories() {
+                axios.get("http://admin.bobbylct.com/api/categories")
+                    .then((response) => {
+                        var data = response.data;
+                        this.lst_categories = data.Data;
+                    })
+                    .catch((error) => { console.log(error) })
+            },
             RunStart() {
                 var vm = this;
                 var param = {};
@@ -224,14 +249,15 @@
                         page: vm.page
                     }
                 }
-                if (vm.search_city) {
-                    Object.assign(param.params, { city_name: vm.search_city })
+                console.log(vm.search_start_date)
+                if (vm.search_start_date) {
+                    Object.assign(param.params, { start_date: moment(vm.search_start_date).format('DD.MM.YYYY') })
                 }
-                if (vm.search_district) {
-                    Object.assign(param.params, { district_name: vm.search_district })
+                if (vm.search_end_date) {
+                    Object.assign(param.params, { end_date: moment(vm.search_end_date).format('DD.MM.YYYY') })
                 }
-                if (vm.search_ward) {
-                    Object.assign(param.params, { ward_name: vm.search_ward })
+                if (vm.search_categories) {
+                    Object.assign(param.params, { category_code: vm.search_categories })
                 }
                 axios.get("http://admin.bobbylct.com/api/legislation", param)
                     .then((response) => {
@@ -245,38 +271,40 @@
                 var vm = this;
                 vm.popup = false;
             },
-            OpenPopupAddLocations() {
+            OpenPopupAddLegislation() {
                 var vm = this;
                 vm.popup = true;
-                vm.locations_id = 0;
-                vm.area = '';
-                vm.city_code = '';
-                vm.city_name = '';
-                vm.district_code = '';
-                vm.district_name = '';
-                vm.population = '';
-                vm.type = '';
-                vm.ward_code = '';
-                vm.ward_name = '';
+                vm.legislation_id = 0;
+                vm.category_code = '';
+                vm.start_date = '';
+                vm.end_date = '';
+                vm.title = '';
+                vm.implementing_authority = '';
+                vm.reporter = '';
+                vm.agency = '';
+                vm.summary = '';
+                vm.description = '';
             },
-            AddLocations() {
+            AddLegislation() {
                 var vm = this;
                 let params = new URLSearchParams()
-                params.append('city_code', vm.city_code)
-                params.append('city_name', vm.city_name)
-                params.append('district_code', vm.district_code)
-                params.append('district_name', vm.district_name)
-                params.append('population', vm.population)
-                params.append('type', vm.type)
-                params.append('ward_code', vm.ward_code)
-                params.append('ward_name', vm.ward_name)
-                params.append('area', vm.area)
-                params.append('id', vm.locations_id)
+                params.append('agency', vm.agency)
+                params.append('category_code', vm.category_code)
+                params.append('description', vm.description)
+                params.append('end_date', moment(vm.end_date).format('DD.MM.YYYY'))
+                params.append('implementing_authority', vm.implementing_authority)
+                params.append('is_importing_country', 1)
+                params.append('reporter', vm.reporter)
+                params.append('start_date', moment(vm.start_date).format('DD.MM.YYYY'))
+                params.append('summary', vm.summary)
+                params.append('title', vm.title)
                 var url = '';
-                if (vm.locations_id != 0) {
-                    url = 'http://admin.bobbylct.com/api/ward/update';
+                if (vm.legislation_id != "0") {
+                    params.append('id', vm.legislation_id)
+                    url = 'http://admin.bobbylct.com/api/legislation/update';
                 } else {
-                    url = 'http://admin.bobbylct.com/api/ward/create';
+                    
+                    url = 'http://admin.bobbylct.com/api/legislation/create';
                 }
                 axios.post(url, params)
                     .then((response) => {
@@ -286,7 +314,7 @@
                     .catch((error) => { console.log(error) })
             },
             DeleteLocations(id) {
-                this.locations_id = id;
+                this.legislation_id = id;
                 this.$vs.dialog({
                     type: 'confirm',
                     color: 'danger',
@@ -299,9 +327,9 @@
             },
             Delete() {
                 var vm = this;
-                axios.post("http://admin.bobbylct.com/api/ward/delete", null, {
+                axios.post("http://admin.bobbylct.com/api/legislation/delete", null, {
                     params: {
-                        id: vm.locations_id
+                        id: vm.legislation_id
                     }
                 })
                     .then(function (response) {
@@ -311,19 +339,25 @@
                         console.log(error)
                     })
             },
-            EditLocations(item) {
+            EditLegislation(item) {
                 var vm = this;
                 vm.popup = true;
-                vm.area = item.Area;
-                vm.city_code = item.CityCode;
-                vm.city_name = item.CityName;
-                vm.district_code = item.DistrictCode;
-                vm.district_name = item.DistrictName;
-                vm.population = item.Population;
-                vm.type = item.Type;
-                vm.ward_code = item.WardCode;
-                vm.ward_name = item.WardName;
-                vm.locations_id = item.ID;
+                vm.legislation_id = item.ID;
+                vm.category_code = item.CategoryCode;
+                vm.start_date = new Date(item.StartDate);
+                vm.end_date = new Date(item.EndDate);
+                vm.title = item.Title;
+                vm.implementing_authority = item.ImplementingAuthority;
+                vm.reporter = item.Reporter;
+                vm.agency = item.Agency;
+                vm.summary = item.Summary;
+                vm.description = item.Description;
+            },
+            OpenFile() {
+                window.open('http://navisoft.bobbylct.com/i18n/file/Legislation_Meansuers.xls');
+            },
+            ImportFile(ev) {
+               
             }
         }
     }
