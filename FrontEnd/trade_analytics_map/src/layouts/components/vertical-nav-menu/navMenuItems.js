@@ -36,6 +36,11 @@ export default [
     i18n: "Dashboard",
     submenu: [
       {
+        url: '/map-analytics',
+        name: "Maps",
+        slug: "map-analytics",
+      },
+      {
         url: '/dashboard/analytics',
         name: "Analytics",
         slug: "dashboard-analytics",

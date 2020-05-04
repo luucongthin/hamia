@@ -18,6 +18,26 @@ import 'vuesax/dist/vuesax.css'; // Vuesax
 Vue.use(Vuesax)
 
 
+// Import vue layers
+import { Map, TileLayer, OsmSource, Geoloc, Feature, IconStyle, 
+        PointGeom, StyleBox, PolygonGeom, FillStyle, VectorSource, VectorLayer, StrokeStyle } from 'vuelayers'
+import 'vuelayers/lib/style.css' // needs css-loader
+
+Vue.use(Map)
+Vue.use(TileLayer)
+Vue.use(OsmSource)
+Vue.use(Geoloc)
+Vue.use(Feature)
+Vue.use(IconStyle)
+Vue.use(PointGeom)
+Vue.use(StyleBox)
+Vue.use(PolygonGeom)
+Vue.use(FillStyle)
+Vue.use(VectorSource)
+Vue.use(VectorLayer)
+Vue.use(StrokeStyle)
+
+
 // axios
 import axios from "./axios.js"
 Vue.prototype.$http = axios

@@ -46,7 +46,8 @@ const router = new Router({
         // =============================================================================
                 {
                     path: '/',
-                    redirect: '/dashboard/analytics'
+                    // redirect: '/dashboard/analytics'
+                    redirect: '/map-analytics'
                 },
                 {
                     path: '/dashboard/analytics',
@@ -60,6 +61,14 @@ const router = new Router({
                     path: '/dashboard/ecommerce',
                     name: 'dashboard-ecommerce',
                     component: () => import('./views/DashboardECommerce.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },
+                {
+                    path: '/map-analytics',
+                    name: 'map-analytics',
+                    component: () => import('./views/trades/MapAnalytics.vue'),
                     meta: {
                         rule: 'admin'
                     }

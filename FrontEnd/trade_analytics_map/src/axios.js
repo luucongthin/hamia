@@ -1,9 +1,9 @@
 // axios
 import axios from 'axios'
 
-const domain = ""
+const domain = "http://api.tradeanalytics.vn/"
 
 export default axios.create({
-  domain
+  baseURL: domain
   // You can add your headers here
 })
